@@ -5,9 +5,12 @@ test.describe('Responsive Layout - Mobile (375px)', () => {
 
   test('1. Header is fixed position at mobile', async ({ page }) => {
     await page.goto('/news/1');
-    await page.waitForSelector('header', { timeout: 15000 });
-    const header = page.locator('header');
-    const position = await header.evaluate(el => {
+    // Wait for feed content to confirm page loaded
+    await page.waitForSelector('.post', { timeout: 15000 });
+    // The #header div (inside <header> element) gets position: fixed at mobile
+    const headerDiv = page.locator('#header');
+    await expect(headerDiv).toBeAttached();
+    const position = await headerDiv.evaluate(el => {
       return window.getComputedStyle(el).position;
     });
     expect(position).toBe('fixed');
@@ -31,9 +34,9 @@ test.describe('Responsive Layout - Laptop (1280px)', () => {
 
   test('3. Header is static/relative position at laptop', async ({ page }) => {
     await page.goto('/news/1');
-    await page.waitForSelector('header', { timeout: 15000 });
-    const header = page.locator('header');
-    const position = await header.evaluate(el => {
+    await page.waitForSelector('#header', { timeout: 15000 });
+    const headerDiv = page.locator('#header');
+    const position = await headerDiv.evaluate(el => {
       return window.getComputedStyle(el).position;
     });
     // Should be static or relative, not fixed

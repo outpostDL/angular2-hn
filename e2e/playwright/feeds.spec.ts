@@ -153,12 +153,13 @@ test.describe('Feed Pages - Mobile (375px)', () => {
 
   test('14. Top margin applied for fixed header clearance', async ({ page }) => {
     await page.goto('/news/1');
-    await page.waitForSelector('.main-content', { timeout: 15000 });
-    const mainContent = page.locator('.main-content');
-    const marginTop = await mainContent.evaluate(el => {
+    // The ol element gets .list-margin class which provides margin-top: 55px at mobile
+    await page.waitForSelector('ol.list-margin', { timeout: 15000 });
+    const listElement = page.locator('ol.list-margin');
+    const marginTop = await listElement.evaluate(el => {
       return window.getComputedStyle(el).marginTop;
     });
-    // At mobile size, there should be some top margin for the fixed header
+    // At mobile size, there should be top margin for the fixed header (55px)
     const marginValue = parseInt(marginTop, 10);
     expect(marginValue).toBeGreaterThan(0);
   });
