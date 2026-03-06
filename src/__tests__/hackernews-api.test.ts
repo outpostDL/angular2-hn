@@ -69,6 +69,16 @@ describe('HackerNews API Service', () => {
 
             await expect(fetchFeed('news', 1)).rejects.toThrow('Network error');
         });
+
+        it('throws on HTTP error response', async () => {
+            vi.mocked(fetch).mockResolvedValueOnce({
+                ok: false,
+                status: 500,
+                statusText: 'Internal Server Error',
+            } as Response);
+
+            await expect(fetchFeed('news', 1)).rejects.toThrow('Failed to fetch feed: 500 Internal Server Error');
+        });
     });
 
     describe('fetchItemContent', () => {
@@ -119,6 +129,16 @@ describe('HackerNews API Service', () => {
 
             await expect(fetchItemContent(1)).rejects.toThrow('Network error');
         });
+
+        it('throws on HTTP error response', async () => {
+            vi.mocked(fetch).mockResolvedValueOnce({
+                ok: false,
+                status: 404,
+                statusText: 'Not Found',
+            } as Response);
+
+            await expect(fetchItemContent(1)).rejects.toThrow('Failed to fetch item: 404 Not Found');
+        });
     });
 
     describe('fetchPollContent', () => {
@@ -150,6 +170,16 @@ describe('HackerNews API Service', () => {
             vi.mocked(fetch).mockRejectedValueOnce(new Error('Network error'));
 
             await expect(fetchUser('testuser')).rejects.toThrow('Network error');
+        });
+
+        it('throws on HTTP error response', async () => {
+            vi.mocked(fetch).mockResolvedValueOnce({
+                ok: false,
+                status: 404,
+                statusText: 'Not Found',
+            } as Response);
+
+            await expect(fetchUser('unknown')).rejects.toThrow('Failed to fetch user: 404 Not Found');
         });
     });
 });
