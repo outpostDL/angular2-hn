@@ -51,7 +51,7 @@ test.describe('Item Details - Laptop (1280px)', () => {
     expect(await commentList.count()).toBeGreaterThanOrEqual(1);
     // First comment has username link
     const firstComment = commentList.first();
-    const userLink = firstComment.locator('a[href*="/user/"]');
+    const userLink = firstComment.locator('a[href*="/user/"]').first();
     await expect(userLink).toBeVisible();
     // Content
     const content = firstComment.locator('.comment-text');
@@ -78,8 +78,17 @@ test.describe('Item Details - Laptop (1280px)', () => {
     const subtreeCount = await subtrees.count();
     // There should be at least one nested subtree if the item has replies
     if (subtreeCount > 0) {
-      const nestedComment = subtrees.first().locator('app-comment').first();
-      expect(await nestedComment.count()).toBeGreaterThanOrEqual(1);
+      // Find a subtree that actually contains nested app-comment elements
+      let foundNested = false;
+      for (let i = 0; i < subtreeCount; i++) {
+        const nestedCount = await subtrees.nth(i).locator('app-comment').count();
+        if (nestedCount > 0) {
+          foundNested = true;
+          break;
+        }
+      }
+      // At least one subtree should have nested comments (if subtrees exist, nesting is present)
+      expect(foundNested).toBe(true);
     }
   });
 
