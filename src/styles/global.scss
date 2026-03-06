@@ -1,0 +1,28 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #f6f6ef;
+    color: #333;
+}
+
+.app {
+    min-height: 100vh;
+}
+
+.app-header {
+    background-color: #b92b27;
+    padding: 8px 16px;
+
+    h1 {
+        color: #fff;
+        font-size: 18px;
+        font-weight: bold;
+    }
+}
