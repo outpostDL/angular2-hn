@@ -79,7 +79,7 @@ test.describe('Item Details - Laptop (1280px)', () => {
     // There should be at least one nested subtree if the item has replies
     if (subtreeCount > 0) {
       const nestedComment = subtrees.first().locator('app-comment').first();
-      expect(await nestedComment.count()).toBeGreaterThanOrEqual(0);
+      expect(await nestedComment.count()).toBeGreaterThanOrEqual(1);
     }
   });
 
