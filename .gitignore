@@ -3,6 +3,7 @@
 
 # Build output
 /dist
+*.tsbuildinfo
 
 # Vite
 *.local
