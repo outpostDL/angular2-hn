@@ -255,7 +255,7 @@ describe('SettingsContext + useSettings', () => {
     });
 
     // ── 10. System dark mode change event updates theme when no saved theme ──
-    it('responds to system dark mode change events', () => {
+    it('responds to system dark mode change events when no saved theme', () => {
         render(
             <SettingsProvider>
                 <SettingsConsumer />
@@ -277,6 +277,30 @@ describe('SettingsContext + useSettings', () => {
         });
 
         expect(screen.getByTestId('theme').textContent).toBe('default');
+    });
+
+    // ── 13. System dark mode change does NOT override user-chosen theme ──
+    it('does not override user-chosen theme when system dark mode changes', () => {
+        render(
+            <SettingsProvider>
+                <SettingsConsumer />
+            </SettingsProvider>
+        );
+
+        // User explicitly sets a theme
+        act(() => {
+            screen.getByTestId('setThemeNight').click();
+        });
+
+        expect(screen.getByTestId('theme').textContent).toBe('night');
+        expect(localStorage.getItem('theme')).toBe('night');
+
+        // System switches to light mode — should NOT override user's choice
+        act(() => {
+            matchMediaMock._fire(false);
+        });
+
+        expect(screen.getByTestId('theme').textContent).toBe('night');
     });
 
     // ── 11. Cleanup removes matchMedia listener on unmount ──
