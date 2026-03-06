@@ -11,6 +11,8 @@ $mobile-only: "only screen and (max-width: 768px)";
     }
 
     .loader {
+        color: #b92b27;
+        background: #b92b27;
         text-indent: -9999em;
         margin: 20px 20px;
         position: relative;
@@ -23,6 +25,7 @@ $mobile-only: "only screen and (max-width: 768px)";
 
         &::before,
         &::after {
+            background: #b92b27;
             content: '';
             position: absolute;
             top: 0;
