@@ -16,8 +16,7 @@ test.describe('Responsive Layout - Mobile (375px)', () => {
     expect(position).toBe('fixed');
   });
 
-  // Test 2 requires FeedPage component implementation (future issue)
-  test.skip('2. Feed page items use mobile layout', async ({ page }) => {
+  test('2. Feed page items use mobile layout', async ({ page }) => {
     await page.goto('/news/1');
     await page.waitForSelector('.post', { timeout: 15000 });
     const firstPost = page.locator('.post').first();
@@ -45,8 +44,7 @@ test.describe('Responsive Layout - Laptop (1280px)', () => {
     expect(['static', 'relative']).toContain(position);
   });
 
-  // Test 4 requires FeedPage component implementation (future issue)
-  test.skip('4. Feed page items use laptop layout', async ({ page }) => {
+  test('4. Feed page items use laptop layout', async ({ page }) => {
     await page.goto('/news/1');
     await page.waitForSelector('.post', { timeout: 15000 });
     const firstPost = page.locator('.post').first();

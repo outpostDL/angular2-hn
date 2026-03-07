@@ -73,7 +73,7 @@
         }
       }
 
-      .subtext, .subtext-palm, .subtext-laptop, .domain, .meta, .deleted-meta{
+      .subtext, .subtext-palm, .subtext-laptop, .domain, .meta, .deleted-meta, .age{
         color: $subtext-color;
 
         a {
@@ -188,6 +188,10 @@
         .right {
           color: $secondary-link-color;
         }
+      }
+
+      .post {
+        border-bottom-color: $subtext-color;
       }
     }
   }
