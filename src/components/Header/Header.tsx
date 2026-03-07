@@ -1,6 +1,8 @@
 import { NavLink, useLocation } from 'react-router-dom';
 import { useSettings } from '../../hooks/useSettings';
 import Settings from '../Settings/Settings';
+import logoSvg from '../../assets/images/logo.svg';
+import cogSvg from '../../assets/images/cog.svg';
 import './Header.scss';
 
 function Header() {
@@ -20,7 +22,7 @@ function Header() {
             <div id="header">
                 <NavLink className="home-link" to="/news/1" onClick={scrollTop}>
                     <div className="logo-inner"></div>
-                    <img className="logo" src="/src/assets/images/logo.svg" alt="Logo" />
+                    <img className="logo" src={logoSvg} alt="Logo" />
                 </NavLink>
                 <div className="header-text">
                     <div className="left">
@@ -62,7 +64,7 @@ function Header() {
                 <div className="info">
                     <img
                         className="settings"
-                        src="/src/assets/images/cog.svg"
+                        src={cogSvg}
                         alt="Settings"
                         onClick={toggleSettings}
                     />

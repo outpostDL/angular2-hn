@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Vite React App Smoke Test', () => {
-    test('app loads at localhost:5173 with no console errors', async ({ page }) => {
+    test('app loads and redirects to /news/1 with no console errors', async ({ page }) => {
         const consoleErrors: string[] = [];
         page.on('console', (msg) => {
             if (msg.type() === 'error') {
@@ -10,7 +10,9 @@ test.describe('Vite React App Smoke Test', () => {
         });
 
         await page.goto('/');
-        await expect(page.locator('h1')).toContainText('Hacker News');
+        await page.waitForURL('**/news/1', { timeout: 15000 });
+        // Header should be visible
+        await expect(page.locator('#header')).toBeVisible();
         expect(consoleErrors).toHaveLength(0);
     });
 });

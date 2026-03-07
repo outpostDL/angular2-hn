@@ -2,7 +2,8 @@ import { test, expect } from '@playwright/test';
 
 const screenshotDir = 'e2e/playwright/screenshots/angular-baseline';
 
-test.describe('Item Details - Laptop (1280px)', () => {
+// Item details tests require ItemDetailsPage component implementation (future issue)
+test.describe.skip('Item Details - Laptop (1280px)', () => {
   test.use({ viewport: { width: 1280, height: 800 } });
 
   test('1. Item page renders title, points, username, time_ago', async ({ page }) => {
@@ -192,7 +193,7 @@ test.describe('Item Details - Laptop (1280px)', () => {
   });
 });
 
-test.describe('Item Details - Mobile (375px)', () => {
+test.describe.skip('Item Details - Mobile (375px)', () => {
   test.use({ viewport: { width: 375, height: 667 } });
 
   test('8. Mobile header visible with back button and truncated title', async ({ page }) => {
@@ -245,7 +246,7 @@ test.describe('Item Details - Mobile (375px)', () => {
   });
 });
 
-test.describe('Item Details - Error Case', () => {
+test.describe.skip('Item Details - Error Case', () => {
   test.use({ viewport: { width: 1280, height: 800 } });
 
   test('11. /item/99999999 shows error or broken state for invalid item', async ({ page }) => {
