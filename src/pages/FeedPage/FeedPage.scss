@@ -37,7 +37,8 @@
     .post {
         padding: 10px 0 10px 5px;
         transition: background-color 0.2s ease;
-        border-bottom: 1px solid #cececb;
+        border-bottom: 1px solid;
+        border-bottom-color: #cececb;
     }
 
     .nav {

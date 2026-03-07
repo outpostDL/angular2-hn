@@ -1,5 +1,5 @@
-$mobile-only: "only screen and (max-width: 768px)";
-$skull-size: 200px;
+@import "../../styles/media";
+@import "../../styles/theme_variables";
 
 .error-section {
     height: 300px;
