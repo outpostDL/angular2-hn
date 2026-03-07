@@ -54,7 +54,7 @@ test.describe('Item Details - Laptop (1280px)', () => {
     const userLink = firstComment.locator('a[href*="/user/"]').first();
     await expect(userLink).toBeVisible();
     // Content
-    const content = firstComment.locator('.comment-text');
+    const content = firstComment.locator('.comment-text').first();
     await expect(content).toBeVisible();
   });
 
