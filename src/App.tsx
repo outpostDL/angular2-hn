@@ -8,7 +8,7 @@ import Loader from './components/Loader/Loader';
 import './styles/app.scss';
 
 const ItemDetailsPage = React.lazy(() => import('./pages/ItemDetailsPage'));
-const UserPage = React.lazy(() => import('./pages/UserPage'));
+const UserPage = React.lazy(() => import('./pages/UserPage/UserPage'));
 
 function App() {
     const { theme } = useSettings();
