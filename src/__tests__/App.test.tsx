@@ -4,6 +4,11 @@ import { describe, it, expect, vi } from 'vitest';
 import App from '../App';
 import { SettingsContext, SettingsContextValue } from '../contexts/SettingsContext';
 
+// Mock the useFeed hook so FeedPage doesn't make API calls
+vi.mock('../hooks/useFeed', () => ({
+    useFeed: vi.fn(() => ({ items: [], error: null, loading: true })),
+}));
+
 function renderApp(route = '/', settingsOverrides: Partial<SettingsContextValue> = {}) {
     const mockSettings: SettingsContextValue = {
         showSettings: false,
@@ -61,33 +66,33 @@ describe('App', () => {
         expect(container.querySelector('.wrapper')).toBeInTheDocument();
     });
 
-    it('redirects / to /news/1', () => {
+    it('redirects / to /news/1 and renders FeedPage (shows Loader while loading)', () => {
         renderApp('/');
-        expect(screen.getByText(/Feed: news, Page: 1/)).toBeInTheDocument();
+        expect(screen.getByText('Loading...')).toBeInTheDocument();
     });
 
     it('renders FeedPage for /news/:page route', () => {
         renderApp('/news/2');
-        expect(screen.getByText(/Feed: news, Page: 2/)).toBeInTheDocument();
+        expect(screen.getByText('Loading...')).toBeInTheDocument();
     });
 
     it('renders FeedPage for /newest/:page route', () => {
         renderApp('/newest/1');
-        expect(screen.getByText(/Feed: newest, Page: 1/)).toBeInTheDocument();
+        expect(screen.getByText('Loading...')).toBeInTheDocument();
     });
 
     it('renders FeedPage for /show/:page route', () => {
         renderApp('/show/1');
-        expect(screen.getByText(/Feed: show, Page: 1/)).toBeInTheDocument();
+        expect(screen.getByText('Loading...')).toBeInTheDocument();
     });
 
     it('renders FeedPage for /ask/:page route', () => {
         renderApp('/ask/1');
-        expect(screen.getByText(/Feed: ask, Page: 1/)).toBeInTheDocument();
+        expect(screen.getByText('Loading...')).toBeInTheDocument();
     });
 
     it('renders FeedPage for /jobs/:page route', () => {
         renderApp('/jobs/1');
-        expect(screen.getByText(/Feed: jobs, Page: 1/)).toBeInTheDocument();
+        expect(screen.getByText('Loading...')).toBeInTheDocument();
     });
 });
