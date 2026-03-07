@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useSettings } from './hooks/useSettings';
+import { useAnalytics } from './hooks/useAnalytics';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import FeedPage from './pages/FeedPage/FeedPage';
@@ -12,6 +13,7 @@ const UserPage = React.lazy(() => import('./pages/UserPage/UserPage'));
 
 function App() {
     const { theme } = useSettings();
+    useAnalytics();
 
     return (
         <div className={theme}>
