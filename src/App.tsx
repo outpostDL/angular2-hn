@@ -3,7 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { useSettings } from './hooks/useSettings';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
-import FeedPage from './pages/FeedPage';
+import FeedPage from './pages/FeedPage/FeedPage';
 import Loader from './components/Loader/Loader';
 import './styles/app.scss';
 
