@@ -485,7 +485,7 @@ test.describe('Edge Cases', () => {
                     );
                     const paddingValue = parseInt(paddingLeft, 10);
                     // There should be some indentation (padding > 0)
-                    expect(paddingValue).toBeGreaterThanOrEqual(0);
+                    expect(paddingValue).toBeGreaterThan(0);
                     break;
                 }
             }
