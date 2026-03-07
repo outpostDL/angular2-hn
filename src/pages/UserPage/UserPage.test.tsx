@@ -109,9 +109,9 @@ describe('UserPage', () => {
         const { container } = renderUserPage('dang');
         const otherDetails = container.querySelector('.other-details');
         expect(otherDetails).toBeInTheDocument();
-        const aboutP = otherDetails!.querySelector('p');
-        expect(aboutP).toBeInTheDocument();
-        expect(aboutP!.innerHTML).toBe('<p>Hello <b>world</b></p>');
+        const aboutDiv = otherDetails!.querySelector('div');
+        expect(aboutDiv).toBeInTheDocument();
+        expect(aboutDiv!.innerHTML).toBe('<p>Hello <b>world</b></p>');
     });
 
     it('hides about section when user.about is empty', () => {

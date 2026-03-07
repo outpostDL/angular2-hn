@@ -47,7 +47,7 @@ function UserPage() {
                 </div>
                 {user.about && (
                     <div className="other-details">
-                        <p dangerouslySetInnerHTML={{ __html: user.about }} />
+                        <div dangerouslySetInnerHTML={{ __html: user.about }} />
                     </div>
                 )}
             </div>
