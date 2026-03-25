@@ -177,7 +177,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             name,
         };
 
-        storeUser(email, password, user);
+        try {
+            storeUser(email, password, user);
+        } catch {
+            dispatch({ type: 'LOGIN_FAILURE' });
+            throw new Error('Failed to create account');
+        }
         dispatch({ type: 'SIGNUP_SUCCESS', payload: user });
     }, []);
 
