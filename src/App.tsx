@@ -9,6 +9,7 @@ import './styles/app.scss';
 
 const ItemDetailsPage = React.lazy(() => import('./pages/ItemDetailsPage'));
 const UserPage = React.lazy(() => import('./pages/UserPage/UserPage'));
+const SignupPage = React.lazy(() => import('./pages/SignupPage/SignupPage'));
 const LoginPage = React.lazy(() => import('./pages/LoginPage/LoginPage'));
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
                         <Route path="/jobs/:page" element={<FeedPage feedType="jobs" />} />
                         <Route path="/item/:id" element={<ItemDetailsPage />} />
                         <Route path="/user/:id" element={<UserPage />} />
+                        <Route path="/signup" element={<SignupPage />} />
                         <Route path="/login" element={<LoginPage />} />
                     </Routes>
                 </Suspense>
