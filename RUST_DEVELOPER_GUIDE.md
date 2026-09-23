@@ -291,9 +291,11 @@ to you through DI instead of accessed by name. Every component that injects
 `SettingsService` gets the same instance, so mutating `settings.theme` in the settings
 panel is immediately visible in `AppComponent`.
 
-The service persists each setting to `localStorage` (a simple string key/value store
-in the browser) and listens to the OS `prefers-color-scheme` media query to switch
-between the `default` and `night` themes when the user has not chosen one explicitly.
+Every setting except the transient `showSettings` flag is persisted to `localStorage`
+(a simple string key/value store in the browser). On startup, `initTheme` uses the saved
+theme if there is one; otherwise it derives `default` or `night` from the OS
+`prefers-color-scheme` media query. The service also keeps listening to that media query,
+and a later OS change calls `setTheme`, which overwrites the saved theme.
 
 ## 9. Templates & reactivity
 
