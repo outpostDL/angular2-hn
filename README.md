@@ -71,6 +71,10 @@ More to come!
 
 Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [file an issue](https://github.com/hdjirdeh/angular2-hn/issues/new)! Feature requests are always welcome.
 
+## Coming from Rust?
+
+See the [Rust Developer Guide](RUST_DEVELOPER_GUIDE.md) for a walkthrough of this codebase that maps Angular/TypeScript concepts onto familiar Rust ones.
+
 ## Build process
 
 Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
