@@ -43,7 +43,11 @@ fn prefers_dark() -> Option<web_sys::MediaQueryList> {
 /// `localStorage.setItem`, while `gloo_storage` JSON-encodes values. These helpers use the
 /// raw Web Storage API so both apps can read each other's preferences.
 fn get_raw(key: &str) -> Option<String> {
-    LocalStorage::raw().get_item(key).ok().flatten()
+    LocalStorage::raw()
+        .get_item(key)
+        .ok()
+        .flatten()
+        .filter(|v| !v.is_empty())
 }
 
 fn set_raw(key: &str, value: &str) {
