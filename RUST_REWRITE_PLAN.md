@@ -172,8 +172,9 @@ downloads `wasm-bindgen` CLI and `dart-sass` on demand).
 ## 3. Gaps & risks
 
 1. **Poll fan-out semantics.** Angular mutates the story after render as each option arrives. The Rust
-   port awaits all `N` option requests concurrently (`join_all`) and returns a complete `Story`; failed
-   option fetches are skipped. Slightly later first paint for polls, but deterministic and no shared
+   port awaits all `N` option requests concurrently (`join_all`) and returns a complete `Story`; a failed
+   option fetch keeps the parent's `poll[]` entry (`item`/`points`), and `poll_votes_count` is summed over
+   the final slots so bars stay consistent. Slightly later first paint for polls, but deterministic and no shared
    mutable state. Polls are rare on the front page so this path is essentially untested against live data.
 2. **Nested comment recursion.** A recursive `#[component]` must return `AnyView` (`.into_any()`) to
    avoid an infinitely-sized `impl IntoView` type. Deep threads (300+ comments) render fine in the

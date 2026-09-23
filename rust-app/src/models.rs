@@ -25,7 +25,8 @@ pub enum ItemType {
 pub struct PollResult {
     #[serde(default)]
     pub points: u32,
-    #[serde(default)]
+    /// `content` on `/item/{option_id}`; the parent poll's `poll[]` entries use `item`.
+    #[serde(default, alias = "item")]
     pub content: String,
 }
 

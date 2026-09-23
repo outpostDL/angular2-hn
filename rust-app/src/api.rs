@@ -59,14 +59,12 @@ pub async fn fetch_item(id: u64) -> Result<Story, ApiError> {
     if story.item_type == ItemType::Poll {
         let n = story.poll.len() as u64;
         let results = join_all((1..=n).map(|i| fetch_poll_option(story.id + i))).await;
-        let mut total = 0;
         for (slot, res) in story.poll.iter_mut().zip(results) {
             if let Ok(opt) = res {
-                total += opt.points;
                 *slot = opt;
             }
         }
-        story.poll_votes_count = total;
+        story.poll_votes_count = story.poll.iter().map(|o| o.points).sum();
     }
     Ok(story)
 }

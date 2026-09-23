@@ -39,11 +39,21 @@ fn prefers_dark() -> Option<web_sys::MediaQueryList> {
         .flatten()
 }
 
+/// Angular stores `theme`/`titleFontSize`/`listSpacing` as raw (unquoted) strings via
+/// `localStorage.setItem`, while `gloo_storage` JSON-encodes values. These helpers use the
+/// raw Web Storage API so both apps can read each other's preferences.
+fn get_raw(key: &str) -> Option<String> {
+    LocalStorage::raw().get_item(key).ok().flatten()
+}
+
+fn set_raw(key: &str, value: &str) {
+    let _ = LocalStorage::raw().set_item(key, value);
+}
+
 impl Settings {
     fn load() -> Self {
         let defaults = Self::default();
-        let saved_theme: Option<String> = LocalStorage::get("theme").ok();
-        let theme = saved_theme.unwrap_or_else(|| {
+        let theme = get_raw("theme").unwrap_or_else(|| {
             if prefers_dark().map(|m| m.matches()).unwrap_or(false) {
                 "night".into()
             } else {
@@ -54,10 +64,8 @@ impl Settings {
             show_settings: false,
             open_link_in_new_tab: LocalStorage::get("openLinkInNewTab").unwrap_or(false),
             theme,
-            title_font_size: LocalStorage::get::<String>("titleFontSize")
-                .unwrap_or(defaults.title_font_size),
-            list_spacing: LocalStorage::get::<String>("listSpacing")
-                .unwrap_or(defaults.list_spacing),
+            title_font_size: get_raw("titleFontSize").unwrap_or(defaults.title_font_size),
+            list_spacing: get_raw("listSpacing").unwrap_or(defaults.list_spacing),
         }
     }
 }
@@ -85,21 +93,21 @@ impl SettingsStore {
     pub fn set_theme(&self, theme: &str) {
         self.0.update(|s| {
             s.theme = theme.to_string();
-            let _ = LocalStorage::set("theme", theme);
+            set_raw("theme", theme);
         });
     }
 
     pub fn set_font(&self, size: &str) {
         self.0.update(|s| {
             s.title_font_size = size.to_string();
-            let _ = LocalStorage::set("titleFontSize", size);
+            set_raw("titleFontSize", size);
         });
     }
 
     pub fn set_spacing(&self, spacing: &str) {
         self.0.update(|s| {
             s.list_spacing = spacing.to_string();
-            let _ = LocalStorage::set("listSpacing", spacing);
+            set_raw("listSpacing", spacing);
         });
     }
 }
