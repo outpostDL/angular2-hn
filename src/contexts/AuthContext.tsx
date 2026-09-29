@@ -177,7 +177,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         await new Promise((resolve) => setTimeout(resolve, LOGIN_DELAY_MS));
 
         if (isRegistered()) {
-            dispatch({ type: 'LOGIN_FAILURE' });
+            dispatch({ type: 'SET_LOADING', payload: false });
             throw new Error('An account with this email already exists');
         }
 
