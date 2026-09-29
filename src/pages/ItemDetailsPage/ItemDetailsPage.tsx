@@ -121,6 +121,9 @@ function ItemDetailsPage() {
                                     />
                                 </div>
                             ))}
+                            {item.poll_incomplete && (
+                                <div className="subtext">Some poll options could not be loaded.</div>
+                            )}
                         </div>
                     )}
 

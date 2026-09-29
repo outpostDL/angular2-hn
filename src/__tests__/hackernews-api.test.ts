@@ -151,7 +151,8 @@ describe('HackerNews API Service', () => {
 
             const result = await fetchItemContent(100);
             expect(result.poll).toEqual([pollResult1]);
-            expect(result.poll_votes_count).toBe(10);
+            expect(result.poll_incomplete).toBe(true);
+            expect(result.poll_votes_count).toBe(0);
         });
 
         it('throws on network error', async () => {

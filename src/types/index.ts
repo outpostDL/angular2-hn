@@ -31,6 +31,7 @@ export interface Story {
     comments_count: number;
     poll: PollResult[];
     poll_votes_count: number;
+    poll_incomplete?: boolean;
     deleted: boolean;
     dead: boolean;
 }

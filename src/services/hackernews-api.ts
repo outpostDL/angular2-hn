@@ -29,8 +29,10 @@ export async function fetchItemContent(id: number): Promise<Story> {
         const pollResults = settled
             .filter((r): r is PromiseFulfilledResult<PollResult> => r.status === 'fulfilled')
             .map((r) => r.value);
+        const incomplete = pollResults.length < settled.length;
         story.poll = pollResults;
-        story.poll_votes_count = pollResults.reduce((sum, result) => sum + result.points, 0);
+        story.poll_incomplete = incomplete;
+        story.poll_votes_count = incomplete ? 0 : pollResults.reduce((sum, result) => sum + result.points, 0);
     }
 
     return story;
