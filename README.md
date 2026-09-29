@@ -1,102 +1,82 @@
-<p align="center">
-  <a href="https://angular2-hn.firebaseapp.com">
-    <img alt="Angular 2 HN" title="Angular 2 HN" src="http://i.imgur.com/J303pQ4.png" width="150">
-  </a>
-</p>
+# Hacker News — React Migration
 
-<p align="center">
-  A progressive Hacker News client built with Angular
-</p>
+A Progressive Web Application clone of Hacker News, migrated from Angular to React.
 
-<p align="center">
-  <a href="https://angular2-hn.firebaseapp.com">View App</a>
-</p>
+## Tech Stack
 
-<p align="center">
-  <a href="/CONTRIBUTING.md"><img alt="PRs Welcome" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a>
-  <a href="https://travis-ci.org/housseindjirdeh/angular2-hn"><img alt="Build Status" src="https://travis-ci.org/housseindjirdeh/angular2-hn.svg?branch=master"></a>
-</p>
+- **Framework:** React 18 + TypeScript
+- **Build Tool:** Vite
+- **Styling:** SCSS
+- **Routing:** React Router v6
+- **Unit Testing:** Vitest + React Testing Library
+- **E2E Testing:** Playwright
 
----
+## Getting Started
 
-:zap: **Fast:** Service Worker App Shell + Dynamic Content model to achieve faster load times with and without a network.
+### Prerequisites
 
-:iphone: **Responsive:** Completely responsive UI that can be installed to your mobile home screen to provide a native feel.
+- Node.js 20 (see `.nvmrc`)
 
-:rocket: **Progressive:** [Lighthouse](https://github.com/GoogleChrome/lighthouse) score of 87/100.
+### Install Dependencies
 
-<p align="center">
-  <img src = "http://i.imgur.com/fzJzLFO.png" width=500>
-</p>
+```bash
+npm install
+```
 
-## Mobile Preview
+### Development
 
-<p align="center">
-  <img src = "http://i.imgur.com/ZloA1hn.gif">
-</p>
+```bash
+npm run dev
+```
 
-## Laptop Preview
+Starts the Vite dev server at [http://localhost:5173](http://localhost:5173).
 
-<p align="center">
-  <img src = "http://i.imgur.com/MrKHaln.gif">
-</p>
+### Build
 
-## Offline Support
+```bash
+npm run build
+```
 
-This app uses [Workbox](https://workboxjs.org/) to generate a service worker as part of the build step to load quickly and work offline.
+Builds the app for production into the `dist/` directory.
 
-## Manifest
+### Testing
 
-With Chromium based browsers for Android (Chrome, Opera, etc...), Angular 2 HN includes a Web App Manifest that allows you to install to your homescreen.
+#### Unit Tests
 
-<p align="center">
-  <img src = "http://i.imgur.com/1RaaNkr.png">
-</p>
+```bash
+npm test            # Run tests once
+npm run test:watch  # Run tests in watch mode
+```
 
-## Themes
+#### E2E Tests (Playwright)
 
-Built in theme engine!
+```bash
+npx playwright test
+```
 
-Current themes:
-* Default
-* Night
-* Black (AMOLED)
+By default, Playwright targets `http://localhost:5173` (Vite dev server). To run against the Angular app instead:
 
-More to come!
+```bash
+BASE_URL=http://localhost:4200 npx playwright test
+```
 
-## Areas of improvement
+## Project Structure
 
- - Realtime updating using the Firebase SDK (may need to add option to settings so service worker can still rely on REST endpoints)
- - Server side rendering
+```
+src/
+  components/    # Reusable UI components
+  pages/         # Route-level page components
+  hooks/         # Custom React hooks
+  services/      # API and data services
+  types/         # TypeScript type definitions
+  styles/        # Global and shared SCSS styles
+  App.tsx        # Root component with routing
+  main.tsx       # Application entry point
+e2e/
+  playwright/    # Playwright e2e test specs
+playwright.config.ts
+```
 
-Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [file an issue](https://github.com/hdjirdeh/angular2-hn/issues/new)! Feature requests are always welcome.
+## Migration Status
 
-## Build process
-
-Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
-
- - Clone or download the repo
- - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
-
-Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
-
-## Contributors
-
-A million thanks to some awesome people :)
-
-* [Ashwin Sureshkumar](https://github.com/ashwin-sureshkumar)
-* [Mateusz](https://github.com/mateuszwitkowski)
-* [Jordi Collell](https://github.com/jordic)
-* [Ben Brooks](https://github.com/bbrks)
-* [Zach Berger](https://github.com/zachberger)
-* [blAck PR](https://github.com/blackpr)
-* [Bram Borggreve](https://github.com/beeman)
-* [Antonio Indrianjafy](https://github.com/Antogin)
-* [Addy Osmani](https://github.com/addyosmani)
-* [Majid Hajian](https://github.com/mhadaily)
-* [Jeff Cross](https://github.com/jeffbcross)
-* [Minko Gechev](https://github.com/mgechev)
+This app is being migrated from Angular to React. The baseline Playwright e2e tests in `e2e/playwright/` define the parity contract — the migration is complete when all baseline tests pass against the React app.

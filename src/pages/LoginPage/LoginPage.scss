@@ -1,0 +1,153 @@
+@import "../../styles/media";
+@import "../../styles/theme_variables";
+
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 60px 20px;
+    min-height: calc(100vh - 200px);
+
+    @media #{$mobile-only} {
+        padding: 80px 15px 40px;
+    }
+}
+
+.login-container {
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0 0 24px;
+    text-align: center;
+}
+
+.login-error {
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+// Theme-aware error styling
+.default .login-error {
+    background-color: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+}
+
+.night .login-error {
+    background-color: rgba(239, 68, 68, 0.15);
+    color: #fca5a5;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.amoledblack .login-error {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #fca5a5;
+    border: 1px solid rgba(239, 68, 68, 0.25);
+}
+
+.form-group {
+    margin-bottom: 16px;
+
+    label {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 6px;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px 12px;
+        font-size: 15px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+        font-family: inherit;
+        outline: none;
+        transition: border-color 0.2s ease;
+
+        &:focus {
+            border-color: $theme-day-secondary-color;
+        }
+    }
+}
+
+// Theme-aware input styling
+.night .form-group input {
+    background-color: #37474f;
+    border-color: #546e7a;
+    color: rgba(255, 255, 255, 0.7);
+
+    &:focus {
+        border-color: $theme-night-secondary-color;
+    }
+
+    &::placeholder {
+        color: rgba(255, 255, 255, 0.35);
+    }
+}
+
+.amoledblack .form-group input {
+    background-color: #1a1a1a;
+    border-color: #333;
+    color: rgba(255, 255, 255, 0.75);
+
+    &:focus {
+        border-color: $theme-amoledblack-secondary-color;
+    }
+
+    &::placeholder {
+        color: rgba(255, 255, 255, 0.3);
+    }
+}
+
+.login-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+    font-family: inherit;
+    margin-top: 8px;
+
+    &:hover:not(:disabled) {
+        opacity: 0.9;
+    }
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+}
+
+// Theme-aware button styling
+.default .login-button {
+    background-color: $theme-day-secondary-color;
+    color: #fff;
+}
+
+.night .login-button {
+    background-color: $theme-night-secondary-color;
+    color: #fff;
+}
+
+.amoledblack .login-button {
+    background-color: $theme-amoledblack-secondary-color;
+    color: #000;
+}
+
+.signup-link {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 24px;
+}

@@ -54,7 +54,7 @@ test.describe('Item Details - Laptop (1280px)', () => {
     const userLink = firstComment.locator('a[href*="/user/"]').first();
     await expect(userLink).toBeVisible();
     // Content
-    const content = firstComment.locator('.comment-text');
+    const content = firstComment.locator('.comment-text').first();
     await expect(content).toBeVisible();
   });
 
@@ -81,7 +81,7 @@ test.describe('Item Details - Laptop (1280px)', () => {
       // Find a subtree that actually contains nested app-comment elements
       let foundNested = false;
       for (let i = 0; i < subtreeCount; i++) {
-        const nestedCount = await subtrees.nth(i).locator('app-comment').count();
+        const nestedCount = await subtrees.nth(i).locator('.comment-component').count();
         if (nestedCount > 0) {
           foundNested = true;
           break;

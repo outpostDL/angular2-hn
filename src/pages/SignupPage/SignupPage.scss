@@ -1,0 +1,150 @@
+@import "../../styles/media";
+@import "../../styles/theme_variables";
+
+.signup-page {
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+
+    @media #{$mobile-only} {
+        padding: 80px 15px 20px;
+    }
+}
+
+.signup-container {
+    width: 100%;
+    max-width: 400px;
+}
+
+.signup-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0 0 24px;
+    text-align: center;
+}
+
+.signup-error {
+    padding: 10px 14px;
+    margin-bottom: 16px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+// Theme-aware error styling
+.default .signup-error {
+    background: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+}
+
+.night .signup-error {
+    background: rgba(239, 68, 68, 0.15);
+    color: #fca5a5;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.amoledblack .signup-error {
+    background: rgba(239, 68, 68, 0.1);
+    color: #fca5a5;
+    border: 1px solid rgba(239, 68, 68, 0.25);
+}
+
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    label {
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    input {
+        padding: 10px 12px;
+        font-size: 15px;
+        border-radius: 4px;
+        outline: none;
+        transition: border-color 0.2s ease;
+        font-family: inherit;
+    }
+}
+
+// Theme-aware input styling
+.default .form-group input {
+    border: 1px solid #d1d5db;
+    background: #fff;
+    color: #000;
+
+    &:focus {
+        border-color: $theme-day-secondary-color;
+    }
+}
+
+.night .form-group input {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.7);
+
+    &:focus {
+        border-color: $theme-night-secondary-color;
+    }
+}
+
+.amoledblack .form-group input {
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.03);
+    color: rgba(255, 255, 255, 0.75);
+
+    &:focus {
+        border-color: $theme-amoledblack-secondary-color;
+    }
+}
+
+.signup-button {
+    padding: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+    font-family: inherit;
+    margin-top: 4px;
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
+    &:hover:not(:disabled) {
+        opacity: 0.9;
+    }
+}
+
+// Theme-aware button styling
+.default .signup-button {
+    background: $theme-day-secondary-color;
+    color: #fff;
+}
+
+.night .signup-button {
+    background: $theme-night-secondary-color;
+    color: #000;
+}
+
+.amoledblack .signup-button {
+    background: $theme-amoledblack-secondary-color;
+    color: #000;
+}
+
+.signup-footer {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 20px;
+}
