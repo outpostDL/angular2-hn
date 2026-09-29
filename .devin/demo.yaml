@@ -1,0 +1,18 @@
+# Demo applet manifest. Any session resuming this branch should read this file
+# and run `start` (or ./run.sh), then expose `ports` as a browser preview.
+name: Shared notes board
+slug: applet-validation
+purpose: Validate the demo-applet-on-a-branch paradigm (create -> push -> resume in another session).
+author: dan@outpostpartners.ai
+created_in_session: https://outpostai.devinenterprise.com/sessions/f86f6624d5da4939b86ec05cdbe814e1
+runtime:
+  - python3 (>=3.8, stdlib only; no install step)
+setup: ""
+start: ./run.sh
+healthcheck: http://localhost:8765/api/health
+ports: [8765]
+preview_path: /
+secrets: []
+data:
+  seed: data/notes.json
+  persist_back: commit data/notes.json to this branch to share state with the next session

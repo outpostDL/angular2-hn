@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Shared notes board (demo applet)</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 640px; margin: 2rem auto; padding: 0 1rem; color: #1f2328; }
+  h1 { font-size: 1.4rem; margin-bottom: .25rem; }
+  .meta { color: #656d76; font-size: .85rem; }
+  form { display: flex; gap: .5rem; margin: 1rem 0; }
+  input { flex: 1; padding: .5rem; border: 1px solid #d0d7de; border-radius: 6px; }
+  input.author { flex: 0 0 8rem; }
+  button { padding: .5rem 1rem; border: 0; border-radius: 6px; background: #1f6feb; color: #fff; cursor: pointer; }
+  li { padding: .6rem 0; border-bottom: 1px solid #eaeef2; list-style: none; }
+  ul { padding: 0; }
+</style>
+</head>
+<body>
+  <h1>Shared notes board</h1>
+  <div class="meta">Demo applet served from branch <code>demo/applet-validation</code> &middot; host <span id="host">?</span></div>
+  <form id="f">
+    <input class="author" id="author" placeholder="your name" />
+    <input id="text" placeholder="add a note" required />
+    <button>Add</button>
+  </form>
+  <ul id="notes"></ul>
+<script>
+  const list = document.getElementById('notes');
+  async function refresh() {
+    const notes = await (await fetch('api/notes')).json();
+    list.innerHTML = '';
+    for (const n of notes.slice().reverse()) {
+      const li = document.createElement('li');
+      li.textContent = n.text;
+      const m = document.createElement('div');
+      m.className = 'meta';
+      m.textContent = `#${n.id} · ${n.author} · ${n.ts}`;
+      li.appendChild(m);
+      list.appendChild(li);
+    }
+  }
+  document.getElementById('f').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const text = document.getElementById('text');
+    await fetch('api/notes', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: text.value, author: document.getElementById('author').value || 'anonymous' }) });
+    text.value = '';
+    refresh();
+  });
+  fetch('api/health').then(r => r.json()).then(h => document.getElementById('host').textContent = h.host);
+  refresh();
+</script>
+</body>
+</html>

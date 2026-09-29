@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "text": "Seed note committed with the demo branch",
+    "author": "seed",
+    "ts": "2026-09-29T00:00:00Z"
+  },
+  {
+    "id": 2,
+    "text": "note added in creating session",
+    "author": "session-A",
+    "ts": "2026-09-29T18:26:55+00:00"
+  }
+]
