@@ -166,7 +166,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }, []);
 
     const signup = useCallback(async (email: string, password: string, name: string): Promise<void> => {
-        if (email === HARDCODED_EMAIL || getStoredUsers().some((u) => u.email === email)) {
+        const isRegistered = () => email === HARDCODED_EMAIL || getStoredUsers().some((u) => u.email === email);
+        if (isRegistered()) {
             throw new Error('An account with this email already exists');
         }
 
@@ -174,6 +175,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         // Simulate async delay
         await new Promise((resolve) => setTimeout(resolve, LOGIN_DELAY_MS));
+
+        if (isRegistered()) {
+            dispatch({ type: 'LOGIN_FAILURE' });
+            throw new Error('An account with this email already exists');
+        }
 
         const user: MockUser = {
             id: crypto.randomUUID(),

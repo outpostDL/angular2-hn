@@ -122,7 +122,7 @@ function ItemDetailsPage() {
                                 </div>
                             ))}
                             {item.poll_incomplete && (
-                                <div className="subtext">Some poll options could not be loaded.</div>
+                                <div className="subtext">Some poll options could not be loaded; bars show share of loaded votes only.</div>
                             )}
                         </div>
                     )}
