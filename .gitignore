@@ -1,3 +1,4 @@
 .demo.log
 .demo.pid
 __pycache__/
+node_modules/
