@@ -124,6 +124,37 @@ describe('HackerNews API Service', () => {
             expect(result.poll_votes_count).toBe(30);
         });
 
+        it('keeps the poll and loaded options when one option fails', async () => {
+            const pollStory: Story = {
+                ...mockStory,
+                id: 100,
+                type: 'poll',
+                poll: [{} as PollResult, {} as PollResult],
+                poll_votes_count: 0,
+            };
+            const pollResult1: PollResult = { points: 10, content: 'Option 1' };
+
+            vi.mocked(fetch)
+                .mockResolvedValueOnce({
+                    ok: true,
+                    json: () => Promise.resolve(pollStory),
+                } as Response)
+                .mockResolvedValueOnce({
+                    ok: true,
+                    json: () => Promise.resolve(pollResult1),
+                } as Response)
+                .mockResolvedValueOnce({
+                    ok: false,
+                    status: 503,
+                    statusText: 'Service Unavailable',
+                } as Response);
+
+            const result = await fetchItemContent(100);
+            expect(result.poll).toEqual([pollResult1]);
+            expect(result.poll_incomplete).toBe(true);
+            expect(result.poll_votes_count).toBe(10);
+        });
+
         it('throws on network error', async () => {
             vi.mocked(fetch).mockRejectedValueOnce(new Error('Network error'));
 
