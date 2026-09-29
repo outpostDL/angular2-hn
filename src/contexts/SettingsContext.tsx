@@ -111,7 +111,7 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
             localStorage.setItem('openLinkInNewTab', JSON.stringify(state.openLinkInNewTab));
         }
         // Only persist theme when user explicitly set it
-        if (prev.theme !== state.theme && state._userSetTheme) {
+        if (state._userSetTheme && (prev.theme !== state.theme || !prev._userSetTheme)) {
             localStorage.setItem('theme', state.theme);
         }
         if (prev.titleFontSize !== state.titleFontSize) {

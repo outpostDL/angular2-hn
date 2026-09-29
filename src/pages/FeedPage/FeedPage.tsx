@@ -28,7 +28,7 @@ function FeedPage({ feedType }: FeedPageProps) {
             {!loading && error && (
                 <ErrorMessage message={`Could not load ${feedType} stories.`} />
             )}
-            {!loading && !error && items.length > 0 && (
+            {!loading && !error && (
                 <div>
                     {feedType === 'jobs' && (
                         <p className="job-header">

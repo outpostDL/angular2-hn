@@ -171,6 +171,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         // Simulate async delay
         await new Promise((resolve) => setTimeout(resolve, LOGIN_DELAY_MS));
 
+        if (email === HARDCODED_EMAIL || getStoredUsers().some((u) => u.email === email)) {
+            dispatch({ type: 'LOGIN_FAILURE' });
+            throw new Error('An account with this email already exists');
+        }
+
         const user: MockUser = {
             id: crypto.randomUUID(),
             email,

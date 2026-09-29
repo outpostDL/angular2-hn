@@ -22,20 +22,6 @@ function SignupPage() {
             return;
         }
 
-        // Check for duplicate email in localStorage before calling signup
-        try {
-            const raw = localStorage.getItem('mockUsers');
-            if (raw) {
-                const users: Array<{ email: string }> = JSON.parse(raw);
-                if (users.some((u) => u.email === email)) {
-                    setError('An account with this email already exists');
-                    return;
-                }
-            }
-        } catch {
-            // Ignore parse errors, proceed with signup
-        }
-
         setIsSubmitting(true);
         try {
             await auth.signup(email, password, name);
