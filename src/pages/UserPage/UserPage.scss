@@ -23,6 +23,8 @@
             margin: 0 75px;
         }
         .back-button {
+            border-top: 0.3rem solid var(--color-accent);
+            border-right: 0.3rem solid var(--color-accent);
             position: absolute;
             top: 52%;
             width: 0.6rem;
@@ -34,6 +36,7 @@
             transform: translate3d(0, -50%, 0) rotate(-135deg);
         }
         .item-header {
+            background: var(--color-surface);
             padding: 10px 0 10px 0;
             position: fixed;
             width: 100%;
@@ -49,17 +52,24 @@
         }
     }
 
+    .item-header {
+        border-bottom: var(--border-accent);
+    }
+
     .main-details {
         .name {
+            color: var(--color-accent);
             font-weight: bold;
             font-size: 32px;
             letter-spacing: 2px;
         }
         .age {
+            color: var(--color-subtext);
             font-weight: bold;
             padding-bottom: 0;
         }
         .right {
+            color: var(--color-accent);
             float: right;
             font-weight: bold;
             font-size: 32px;

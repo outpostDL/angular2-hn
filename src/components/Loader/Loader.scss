@@ -11,8 +11,8 @@
     }
 
     .loader {
-        color: #b92b27;
-        background: #b92b27;
+        color: var(--color-accent);
+        background: var(--color-accent);
         text-indent: -9999em;
         margin: 20px 20px;
         position: relative;
@@ -25,7 +25,7 @@
 
         &::before,
         &::after {
-            background: #b92b27;
+            background: var(--color-accent);
             content: '';
             position: absolute;
             top: 0;

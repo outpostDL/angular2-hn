@@ -12,11 +12,12 @@
 
     .meta {
         font-size: 13px;
-        color: #696969;
+        color: var(--color-subtext);
         font-weight: bold;
         letter-spacing: 0.5px;
         margin-bottom: 8px;
         a {
+            color: var(--color-accent);
             text-decoration: none;
 
             &:hover {
@@ -44,11 +45,13 @@
     }
 
     .deleted-meta {
+        color: var(--color-subtext);
         font-size: 12px;
         font-weight: bold;
         letter-spacing: 0.5px;
         margin: 30px 0;
         a {
+            color: var(--color-accent);
             text-decoration: none;
         }
     }

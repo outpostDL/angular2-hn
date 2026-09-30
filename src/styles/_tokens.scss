@@ -1,0 +1,88 @@
+@use "media" as *;
+
+/* ----------------------------------------------------------------------------------------------
+  Design tokens
+
+  Every themed value is a CSS custom property declared on the theme class that App.tsx puts on
+  the root div (.default, .night, .amoledblack). Components consume them with var(--token);
+  adding a theme means adding one more block below.
+
+  Colors
+    --color-bg            page background behind the content column (.body-cover)
+    --color-surface       content column background (.wrapper), also used for "cut-outs"
+    --color-text          body text and default link color
+    --color-subtext       secondary text (meta lines, domains, ages) and list separators
+    --color-accent        accent: secondary links, nav, loader, poll bars, skull, profile name
+    --color-header-bg     header bar and settings popup background
+    --color-link-visited  visited link color
+    --color-logo-inner    fill behind the header logo
+
+  Borders
+    --border-accent       2px accent rule (header, footer, item header, job header)
+
+  Shape and spacing (theme-independent)
+    --radius-sm / -md / -lg   4px / 8px / 12px
+    --space-1 .. --space-6    4px / 8px / 12px / 16px / 24px / 32px
+
+  On $mobile-only screens --color-bg and --color-surface collapse to the mobile surface color.
+---------------------------------------------------------------------------------------------- */
+
+.default,
+.night,
+.amoledblack {
+  --border-accent: 2px solid var(--color-accent);
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+}
+
+.default {
+  --color-bg: #fff;
+  --color-surface: #f5f5f5;
+  --color-text: #000;
+  --color-subtext: #696969;
+  --color-accent: #b92b27;
+  --color-header-bg: #b92b27;
+  --color-link-visited: #696969;
+  --color-logo-inner: #fff;
+
+  @media #{$mobile-only} {
+    --color-bg: #fff;
+    --color-surface: #fff;
+  }
+}
+
+.night {
+  --color-bg: #37474f;
+  --color-surface: #263238;
+  --color-text: rgba(255, 255, 255, 0.7);
+  --color-subtext: #999;
+  --color-accent: #00c0ff;
+  --color-header-bg: #263238;
+  --color-link-visited: #999;
+  --color-logo-inner: #263238;
+
+  @media #{$mobile-only} {
+    --color-bg: #263238;
+    --color-surface: #263238;
+  }
+}
+
+.amoledblack {
+  --color-bg: #000;
+  --color-surface: #000;
+  --color-text: rgba(255, 255, 255, 0.75);
+  --color-subtext: rgba(255, 255, 255, 0.5);
+  --color-accent: rgba(255, 255, 255, 0.6);
+  --color-header-bg: #000;
+  --color-link-visited: rgba(171, 171, 171, 0.75);
+  --color-logo-inner: #000;
+}

@@ -80,6 +80,8 @@
             font-size: 15px;
         }
         .back-button {
+            border-top: 0.3rem solid var(--color-accent);
+            border-right: 0.3rem solid var(--color-accent);
             position: absolute;
             top: 52%;
             width: 0.6rem;
@@ -93,16 +95,20 @@
     }
 
     .subtext {
+        color: var(--color-subtext);
         font-size: 12px;
         font-weight: bold;
         letter-spacing: 0.5px;
     }
 
     .domain {
+        color: var(--color-subtext);
         letter-spacing: 0.5px;
     }
 
     .subtext a {
+        color: var(--color-accent);
+
         &:hover {
             text-decoration: underline;
         }
@@ -114,10 +120,12 @@
 
     .item-header {
         padding-bottom: 10px;
+        border-bottom: var(--border-accent);
     }
 
     @media #{$mobile-only} {
         .item-header {
+            background: var(--color-surface);
             padding: 10px 0 10px 0;
             position: fixed;
             width: 100%;
@@ -137,6 +145,7 @@
             margin-top: 1em;
         }
         .pollBar {
+            background: var(--color-accent);
             height: 10px;
             margin-bottom: 1em;
         }

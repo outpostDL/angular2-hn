@@ -6,8 +6,10 @@
     height: 60px;
     letter-spacing: 0.7px;
     text-align: center;
+    border-top: var(--border-accent);
 
     a {
+        color: var(--color-accent);
         font-weight: bold;
         text-decoration: none;
 

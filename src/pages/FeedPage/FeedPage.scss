@@ -38,7 +38,7 @@
         padding: 10px 0 10px 5px;
         transition: background-color 0.2s ease;
         border-bottom: 1px solid;
-        border-bottom-color: #cececb;
+        border-bottom-color: var(--color-subtext);
     }
 
     .nav {
@@ -47,6 +47,8 @@
         font-size: 17px;
 
         a {
+            color: var(--color-accent);
+
             @media #{$mobile-only} {
                 text-decoration: none;
             }
@@ -80,6 +82,7 @@
         padding: 0 40px 10px;
 
         @media #{$mobile-only} {
+            border-bottom: var(--border-accent);
             padding: 60px 15px 25px 15px;
         }
     }

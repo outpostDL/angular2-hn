@@ -22,11 +22,14 @@
     }
 
     .subtext-laptop {
+        color: var(--color-subtext);
         font-size: 12px;
         font-weight: bold;
         letter-spacing: 0.5px;
 
         a {
+            color: var(--color-accent);
+
             &:hover {
                 text-decoration: underline;
             }
@@ -38,11 +41,14 @@
     }
 
     .subtext-palm {
+        color: var(--color-subtext);
         font-size: 13px;
         font-weight: bold;
         letter-spacing: 0.5px;
 
         a {
+            color: var(--color-accent);
+
             &:hover {
                 text-decoration: underline;
             }
@@ -62,7 +68,7 @@
     }
 
     .domain {
-        color: #696969;
+        color: var(--color-subtext);
         letter-spacing: 0.5px;
     }
 
