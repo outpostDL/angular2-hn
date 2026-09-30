@@ -1,5 +1,7 @@
 # Hacker News — React Migration
 
+[![CI](https://github.com/outpostDL/angular2-hn/actions/workflows/ci.yml/badge.svg)](https://github.com/outpostDL/angular2-hn/actions/workflows/ci.yml)
+
 A Progressive Web Application clone of Hacker News, migrated from Angular to React.
 
 ## Tech Stack

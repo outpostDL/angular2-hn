@@ -17,4 +17,8 @@ Thank you for your interest in contributing! Please feel free to put up a PR for
 8. Commit your changes and reference the issue you're addressing (for example: `git commit -am 'Commit message. Closes #5'`)
 9. Push your branch and open a pull request to `master`
 
+## Continuous integration
+
+Every pull request (against any base branch) and every push to `master` runs the [CI workflow](.github/workflows/ci.yml) on GitHub Actions. It runs four jobs: typecheck (`npx tsc -b`), unit tests (`npm test`), build (`npm run build`) and Playwright e2e (Chromium against `npm run dev`). All jobs must be green before a PR is merged. If e2e fails, download the `playwright-report` artifact from the run for the HTML report. The e2e suite hits the live Hacker News API, so an occasional timeout from that API can fail the job; re-run it before digging in.
+
 If you experience a problem at any point, please don't hesitate to file an issue!
