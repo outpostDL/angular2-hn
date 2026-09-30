@@ -1,0 +1,614 @@
+{
+ "issues": [
+  {
+   "id": "DAN-73",
+   "title": "Plan: UX Refresh",
+   "status": "Done",
+   "labels": [
+    "research"
+   ],
+   "priority": {
+    "value": 3,
+    "name": "Medium"
+   },
+   "assignee": null,
+   "projectMilestone": {
+    "id": "56b80f1a-4e61-411d-a432-8a2b06ecbd0a",
+    "name": "UX Refresh"
+   },
+   "gitBranchName": "dan/dan-73-plan-ux-refresh",
+   "description": "## Goal\n\nScope the UX Refresh milestone into session-sized, dependency-ordered issues for the React app on `master`.\n\n## Output (completed)\n\nIssues created in this milestone: design tokens (foundation) -> header theme toggle, story cards, skeleton loading, settings drawer -> comment rails, mobile bottom nav, empty/error states -> Validate.\nFeature branch: `feature/ux-refresh` off `master`; child PRs target it; one roll-up PR into `master`.",
+   "relations": {
+    "blocks": [
+     {
+      "id": "DAN-74",
+      "title": "Design tokens: move theme colors to CSS custom properties"
+     }
+    ],
+    "blockedBy": [],
+    "relatedTo": [],
+    "duplicateOf": null
+   },
+   "updatedAt": "2026-09-29T17:26:44.912Z"
+  },
+  {
+   "id": "DAN-74",
+   "title": "Design tokens: move theme colors to CSS custom properties",
+   "status": "Todo",
+   "labels": [
+    "frontend",
+    "Devin"
+   ],
+   "priority": {
+    "value": 3,
+    "name": "Medium"
+   },
+   "assignee": null,
+   "projectMilestone": {
+    "id": "56b80f1a-4e61-411d-a432-8a2b06ecbd0a",
+    "name": "UX Refresh"
+   },
+   "gitBranchName": "dan/dan-74-design-tokens-move-theme-colors-to-css-custom-properties",
+   "description": "## Goal\n\nEvery themed color, border, radius, and spacing value comes from CSS custom properties, so later UI work (and future themes) only touch tokens.\n\n## Context\n\n* Repo: [https://github.com/outpostDL/angular2-hn](<https://github.com/outpostDL/angular2-hn>) (branch `master`, React 18 + Vite)\n* `src/styles/_theme_variables.scss` defines per-theme SCSS variables; `src/styles/_themes.scss` (\\~250 lines) applies them per component under `.default`, `.night`, `.amoledblack`.\n* `App.tsx` puts the theme class on the root `div`.\n\n## Acceptance criteria\n\n- [ ] New `src/styles/_tokens.scss` declares `--color-bg`, `--color-surface`, `--color-text`, `--color-subtext`, `--color-accent`, `--color-header-bg`, `--border-accent`, `--radius-sm/md/lg`, `--space-1..6` for each theme class.\n- [ ] Component SCSS files consume `var(--...)` instead of per-theme overrides; `_themes.scss` shrinks to token declarations only.\n- [ ] No visual change: feed, item details, user page and settings overlay match the before screenshots in all three themes (pixel diff < 1% via Playwright `toHaveScreenshot`).\n- [ ] Tokens documented in a short comment block at the top of `_tokens.scss`.\n\n## UI expectations\n\nPure refactor \u2014 before/after should be visually identical. Include the side-by-side diff as the evidence.\n\n## Validation\n\n* `npx tsc -b`, `npm test`, `npm run build` pass; add/extend vitest tests for new behavior.\n* `BASE_URL=http://localhost:5173 npx playwright test` passes.\n* Evidence (per `ui-pr-evidence`): before/after screenshots at 1440x900 and 390x844 in all three themes (default, night, amoled) where the change is visible, plus a short interaction video (animated webp) at the top of the PR.\n\n## Run constraints\n\nDemo mode. This issue is part of a repeatable demo (see **Run constraints** in project <project id=\"4f25bbb9-8071-4bf3-bba6-87d653a2789c\" href=\"https://linear.app/outpostpartners/project/hn-reader-ux-refresh-3528d5a8bfb6\">HN Reader \u2014 UX Refresh</project>). PRs may be opened but never merged. The issue may move up to In Review but never to Done, Canceled or Duplicate. At wrap-up, offer to reset the demo.",
+   "relations": {
+    "blocks": [
+     {
+      "id": "DAN-85",
+      "title": "PWA: web app manifest, icons, per-theme theme-color and install prompt"
+     },
+     {
+      "id": "DAN-78",
+      "title": "Settings drawer redesign with live preview"
+     },
+     {
+      "id": "DAN-77",
+      "title": "Skeleton loading state for feeds"
+     },
+     {
+      "id": "DAN-76",
+      "title": "Story card redesign for feed items"
+     },
+     {
+      "id": "DAN-75",
+      "title": "Header theme quick-toggle"
+     }
+    ],
+    "blockedBy": [
+     {
+      "id": "DAN-73",
+      "title": "Plan: UX Refresh"
+     }
+    ],
+    "relatedTo": [],
+    "duplicateOf": null
+   },
+   "updatedAt": "2026-09-30T03:10:05.884Z"
+  },
+  {
+   "id": "DAN-75",
+   "title": "Header theme quick-toggle",
+   "status": "Todo",
+   "labels": [
+    "frontend",
+    "Devin"
+   ],
+   "priority": {
+    "value": 3,
+    "name": "Medium"
+   },
+   "assignee": null,
+   "projectMilestone": {
+    "id": "56b80f1a-4e61-411d-a432-8a2b06ecbd0a",
+    "name": "UX Refresh"
+   },
+   "gitBranchName": "dan/dan-75-header-theme-quick-toggle",
+   "description": "## Goal\n\nReaders can switch theme in one click from the header instead of opening Settings.\n\n## Context\n\n* Repo: [https://github.com/outpostDL/angular2-hn](<https://github.com/outpostDL/angular2-hn>) (branch `master`, React 18 + Vite)\n* `src/components/Header/Header.tsx` (cog icon opens Settings); `SettingsContext.setTheme` already persists to localStorage and follows `prefers-color-scheme` until the user chooses.\n\n## Acceptance criteria\n\n- [ ] Icon button left of the cog cycles default -> night -> amoled -> default (sun / moon / black-circle icons, inline SVG).\n- [ ] Uses `setTheme` so the choice persists across reloads and the Settings panel reflects it.\n- [ ] `aria-label` announces the next theme; keyboard operable (Enter/Space); visible focus ring.\n- [ ] Theme change animates background/text color over 200ms (`prefers-reduced-motion` disables it).\n- [ ] Header unit test covers cycling and persistence.\n\n## UI expectations\n\nButton 32x32 hit area, matches cog size; visible in all themes on desktop and mobile header.\n\n## Validation\n\n* `npx tsc -b`, `npm test`, `npm run build` pass; add/extend vitest tests for new behavior.\n* `BASE_URL=http://localhost:5173 npx playwright test` passes.\n* Evidence (per `ui-pr-evidence`): before/after screenshots at 1440x900 and 390x844 in all three themes (default, night, amoled) where the change is visible, plus a short interaction video (animated webp) at the top of the PR.\n\n## Run constraints\n\nDemo mode. This issue is part of a repeatable demo (see **Run constraints** in project <project id=\"4f25bbb9-8071-4bf3-bba6-87d653a2789c\" href=\"https://linear.app/outpostpartners/project/hn-reader-ux-refresh-3528d5a8bfb6\">HN Reader \u2014 UX Refresh</project>). PRs may be opened but never merged. The issue may move up to In Review but never to Done, Canceled or Duplicate. At wrap-up, offer to reset the demo.",
+   "relations": {
+    "blocks": [
+     {
+      "id": "DAN-82",
+      "title": "Validate: UX Refresh"
+     },
+     {
+      "id": "DAN-80",
+      "title": "Mobile bottom navigation"
+     }
+    ],
+    "blockedBy": [
+     {
+      "id": "DAN-74",
+      "title": "Design tokens: move theme colors to CSS custom properties"
+     }
+    ],
+    "relatedTo": [],
+    "duplicateOf": null
+   },
+   "updatedAt": "2026-09-30T03:10:06.480Z"
+  },
+  {
+   "id": "DAN-76",
+   "title": "Story card redesign for feed items",
+   "status": "Todo",
+   "labels": [
+    "frontend",
+    "Devin"
+   ],
+   "priority": {
+    "value": 3,
+    "name": "Medium"
+   },
+   "assignee": null,
+   "projectMilestone": {
+    "id": "56b80f1a-4e61-411d-a432-8a2b06ecbd0a",
+    "name": "UX Refresh"
+   },
+   "gitBranchName": "dan/dan-76-story-card-redesign-for-feed-items",
+   "description": "## Goal\n\nFeed rows become scannable cards: score, source, age and discussion size are readable at a glance.\n\n## Context\n\n* Repo: [https://github.com/outpostDL/angular2-hn](<https://github.com/outpostDL/angular2-hn>) (branch `master`, React 18 + Vite)\n* `src/components/ItemRow/ItemRow.tsx` + `ItemRow.scss`; separate `subtext-palm` (mobile) and `subtext-laptop` layouts today.\n* Respects `titleFontSize`, `listSpacing`, `openLinkInNewTab` from settings.\n\n## Acceptance criteria\n\n- [ ] Card layout: score badge on the left (points, accent color), title, domain chip with favicon (`https://www.google.com/s2/favicons?domain=<domain>&sz=32`, hidden on error), meta row `by user \u00b7 3h ago \u00b7 \ud83d\udcac 42`.\n- [ ] New reusable `Chip`/`Pill` component in `src/components/Chip/` (used later by comment threads).\n- [ ] Jobs render without score/comments; Ask/Show posts without URL link to item details.\n- [ ] Single responsive layout replaces the palm/laptop duplication; existing settings still apply.\n- [ ] Hover/focus state on the whole card; unit tests for job vs story rendering.\n\n## UI expectations\n\nCards use `--radius-md`, `--color-surface`, 1px subtle border; compact on 390px width (no horizontal scroll).\n\n## Validation\n\n* `npx tsc -b`, `npm test`, `npm run build` pass; add/extend vitest tests for new behavior.\n* `BASE_URL=http://localhost:5173 npx playwright test` passes.\n* Evidence (per `ui-pr-evidence`): before/after screenshots at 1440x900 and 390x844 in all three themes (default, night, amoled) where the change is visible, plus a short interaction video (animated webp) at the top of the PR.\n\n## Run constraints\n\nDemo mode. This issue is part of a repeatable demo (see **Run constraints** in project <project id=\"4f25bbb9-8071-4bf3-bba6-87d653a2789c\" href=\"https://linear.app/outpostpartners/project/hn-reader-ux-refresh-3528d5a8bfb6\">HN Reader \u2014 UX Refresh</project>). PRs may be opened but never merged. The issue may move up to In Review but never to Done, Canceled or Duplicate. At wrap-up, offer to reset the demo.",
+   "relations": {
+    "blocks": [
+     {
+      "id": "DAN-82",
+      "title": "Validate: UX Refresh"
+     },
+     {
+      "id": "DAN-79",
+      "title": "Comment threads: depth rails and collapsed reply counts"
+     }
+    ],
+    "blockedBy": [
+     {
+      "id": "DAN-74",
+      "title": "Design tokens: move theme colors to CSS custom properties"
+     }
+    ],
+    "relatedTo": [],
+    "duplicateOf": null
+   },
+   "updatedAt": "2026-09-30T03:10:06.703Z"
+  },
+  {
+   "id": "DAN-77",
+   "title": "Skeleton loading state for feeds",
+   "status": "Todo",
+   "labels": [
+    "frontend",
+    "Devin"
+   ],
+   "priority": {
+    "value": 3,
+    "name": "Medium"
+   },
+   "assignee": null,
+   "projectMilestone": {
+    "id": "56b80f1a-4e61-411d-a432-8a2b06ecbd0a",
+    "name": "UX Refresh"
+   },
+   "gitBranchName": "dan/dan-77-skeleton-loading-state-for-feeds",
+   "description": "## Goal\n\nThe feed shows the page's shape while loading instead of a centered spinner, so it feels faster.\n\n## Context\n\n* Repo: [https://github.com/outpostDL/angular2-hn](<https://github.com/outpostDL/angular2-hn>) (branch `master`, React 18 + Vite)\n* `src/pages/FeedPage/FeedPage.tsx` renders `<Loader />` while fetching; `src/components/Loader/`.\n\n## Acceptance criteria\n\n- [ ] New `FeedSkeleton` renders 10 placeholder rows matching the feed row geometry with a shimmer animation.\n- [ ] Shown on first load and on page change; spinner remains only as the Suspense fallback for lazy routes.\n- [ ] Shimmer disabled under `prefers-reduced-motion`.\n- [ ] Colors from tokens so skeletons look right in all three themes.\n- [ ] Unit test: skeleton visible while the API promise is pending, replaced by rows after resolve.\n\n## UI expectations\n\nCapture the loading state by throttling/delaying the HN API route in Playwright (`page.route` with a 2s delay) for the screenshots and video.\n\n## Validation\n\n* `npx tsc -b`, `npm test`, `npm run build` pass; add/extend vitest tests for new behavior.\n* `BASE_URL=http://localhost:5173 npx playwright test` passes.\n* Evidence (per `ui-pr-evidence`): before/after screenshots at 1440x900 and 390x844 in all three themes (default, night, amoled) where the change is visible, plus a short interaction video (animated webp) at the top of the PR.\n\n## Run constraints\n\nDemo mode. This issue is part of a repeatable demo (see **Run constraints** in project <project id=\"4f25bbb9-8071-4bf3-bba6-87d653a2789c\" href=\"https://linear.app/outpostpartners/project/hn-reader-ux-refresh-3528d5a8bfb6\">HN Reader \u2014 UX Refresh</project>). PRs may be opened but never merged. The issue may move up to In Review but never to Done, Canceled or Duplicate. At wrap-up, offer to reset the demo.",
+   "relations": {
+    "blocks": [
+     {
+      "id": "DAN-82",
+      "title": "Validate: UX Refresh"
+     },
+     {
+      "id": "DAN-81",
+      "title": "Empty and error states with retry"
+     }
+    ],
+    "blockedBy": [
+     {
+      "id": "DAN-74",
+      "title": "Design tokens: move theme colors to CSS custom properties"
+     }
+    ],
+    "relatedTo": [],
+    "duplicateOf": null
+   },
+   "updatedAt": "2026-09-30T03:10:06.289Z"
+  },
+  {
+   "id": "DAN-78",
+   "title": "Settings drawer redesign with live preview",
+   "status": "Todo",
+   "labels": [
+    "frontend",
+    "Devin"
+   ],
+   "priority": {
+    "value": 3,
+    "name": "Medium"
+   },
+   "assignee": null,
+   "projectMilestone": {
+    "id": "56b80f1a-4e61-411d-a432-8a2b06ecbd0a",
+    "name": "UX Refresh"
+   },
+   "gitBranchName": "dan/dan-78-settings-drawer-redesign-with-live-preview",
+   "description": "## Goal\n\nSettings open in a slide-over drawer where changes preview live on a sample story before the reader closes it.\n\n## Context\n\n* Repo: [https://github.com/outpostDL/angular2-hn](<https://github.com/outpostDL/angular2-hn>) (branch `master`, React 18 + Vite)\n* `src/components/Settings/Settings.tsx` renders an overlay toggled by `showSettings`; options: open links in new tab, theme, title font size, list spacing.\n\n## Acceptance criteria\n\n- [ ] Right-side drawer (360px desktop, full-width sheet on mobile) slides in over a dimmed backdrop; closes on backdrop click, Esc, and close button.\n- [ ] Grouped sections (Appearance, Reading, Links) with segmented controls for theme and sliders for font size/spacing.\n- [ ] Sample story row at the top previews font size/spacing/theme live.\n- [ ] Focus is trapped in the drawer and returns to the cog on close.\n- [ ] Existing Settings tests updated; new tests for Esc/backdrop close.\n\n## UI expectations\n\nDrawer uses `--color-surface`, `--radius-lg` on the leading edge, 250ms ease-out slide.\n\n## Validation\n\n* `npx tsc -b`, `npm test`, `npm run build` pass; add/extend vitest tests for new behavior.\n* `BASE_URL=http://localhost:5173 npx playwright test` passes.\n* Evidence (per `ui-pr-evidence`): before/after screenshots at 1440x900 and 390x844 in all three themes (default, night, amoled) where the change is visible, plus a short interaction video (animated webp) at the top of the PR.\n\n## Run constraints\n\nDemo mode. This issue is part of a repeatable demo (see **Run constraints** in project <project id=\"4f25bbb9-8071-4bf3-bba6-87d653a2789c\" href=\"https://linear.app/outpostpartners/project/hn-reader-ux-refresh-3528d5a8bfb6\">HN Reader \u2014 UX Refresh</project>). PRs may be opened but never merged. The issue may move up to In Review but never to Done, Canceled or Duplicate. At wrap-up, offer to reset the demo.",
+   "relations": {
+    "blocks": [
+     {
+      "id": "DAN-82",
+      "title": "Validate: UX Refresh"
+     }
+    ],
+    "blockedBy": [
+     {
+      "id": "DAN-74",
+      "title": "Design tokens: move theme colors to CSS custom properties"
+     }
+    ],
+    "relatedTo": [
+     {
+      "id": "DAN-85",
+      "title": "PWA: web app manifest, icons, per-theme theme-color and install prompt"
+     }
+    ],
+    "duplicateOf": null
+   },
+   "updatedAt": "2026-09-30T03:10:09.605Z"
+  },
+  {
+   "id": "DAN-79",
+   "title": "Comment threads: depth rails and collapsed reply counts",
+   "status": "Todo",
+   "labels": [
+    "frontend",
+    "Devin"
+   ],
+   "priority": {
+    "value": 3,
+    "name": "Medium"
+   },
+   "assignee": null,
+   "projectMilestone": {
+    "id": "56b80f1a-4e61-411d-a432-8a2b06ecbd0a",
+    "name": "UX Refresh"
+   },
+   "gitBranchName": "dan/dan-79-comment-threads-depth-rails-and-collapsed-reply-counts",
+   "description": "## Goal\n\nLong discussions are easier to follow: nesting depth is visible and collapsed threads say how much they hide.\n\n## Context\n\n* Repo: [https://github.com/outpostDL/angular2-hn](<https://github.com/outpostDL/angular2-hn>) (branch `master`, React 18 + Vite)\n* `src/components/Comment/Comment.tsx` renders recursive comments with a `[-]/[+]` collapse toggle.\n* Reuse the `Chip` component introduced by the story card redesign.\n\n## Acceptance criteria\n\n- [ ] Each nesting level has a 2px left rail; rail color cycles through 5 token-derived hues by depth.\n- [ ] Clicking the rail collapses that thread (in addition to the existing toggle).\n- [ ] Collapsed thread shows a chip `+N replies` where N counts all descendants.\n- [ ] OP's username gets an `OP` chip.\n- [ ] Unit tests for descendant counting and rail-click collapse.\n\n## UI expectations\n\nRails stay visible in amoled; at 390px width indentation caps at 4 levels (deeper levels keep the rail color but no extra indent).\n\n## Validation\n\n* `npx tsc -b`, `npm test`, `npm run build` pass; add/extend vitest tests for new behavior.\n* `BASE_URL=http://localhost:5173 npx playwright test` passes.\n* Evidence (per `ui-pr-evidence`): before/after screenshots at 1440x900 and 390x844 in all three themes (default, night, amoled) where the change is visible, plus a short interaction video (animated webp) at the top of the PR.\n\n## Run constraints\n\nDemo mode. This issue is part of a repeatable demo (see **Run constraints** in project <project id=\"4f25bbb9-8071-4bf3-bba6-87d653a2789c\" href=\"https://linear.app/outpostpartners/project/hn-reader-ux-refresh-3528d5a8bfb6\">HN Reader \u2014 UX Refresh</project>). PRs may be opened but never merged. The issue may move up to In Review but never to Done, Canceled or Duplicate. At wrap-up, offer to reset the demo.",
+   "relations": {
+    "blocks": [
+     {
+      "id": "DAN-82",
+      "title": "Validate: UX Refresh"
+     }
+    ],
+    "blockedBy": [
+     {
+      "id": "DAN-76",
+      "title": "Story card redesign for feed items"
+     }
+    ],
+    "relatedTo": [],
+    "duplicateOf": null
+   },
+   "updatedAt": "2026-09-30T03:10:09.386Z"
+  },
+  {
+   "id": "DAN-80",
+   "title": "Mobile bottom navigation",
+   "status": "Todo",
+   "labels": [
+    "frontend",
+    "Devin"
+   ],
+   "priority": {
+    "value": 3,
+    "name": "Medium"
+   },
+   "assignee": null,
+   "projectMilestone": {
+    "id": "56b80f1a-4e61-411d-a432-8a2b06ecbd0a",
+    "name": "UX Refresh"
+   },
+   "gitBranchName": "dan/dan-80-mobile-bottom-navigation",
+   "description": "Add a bottom nav on mobile so the feeds are easier to reach.\n\nRepo: [https://github.com/outpostDL/angular2-hn](<https://github.com/outpostDL/angular2-hn>)\n\n## Run constraints\n\nDemo mode. This issue is part of a repeatable demo (see **Run constraints** in project <project id=\"4f25bbb9-8071-4bf3-bba6-87d653a2789c\" href=\"https://linear.app/outpostpartners/project/hn-reader-ux-refresh-3528d5a8bfb6\">HN Reader \u2014 UX Refresh</project>). PRs may be opened but never merged. The issue may move up to In Review but never to Done, Canceled or Duplicate. At wrap-up, offer to reset the demo.",
+   "relations": {
+    "blocks": [
+     {
+      "id": "DAN-82",
+      "title": "Validate: UX Refresh"
+     }
+    ],
+    "blockedBy": [
+     {
+      "id": "DAN-75",
+      "title": "Header theme quick-toggle"
+     }
+    ],
+    "relatedTo": [],
+    "duplicateOf": null
+   },
+   "updatedAt": "2026-09-30T03:10:07.136Z"
+  },
+  {
+   "id": "DAN-81",
+   "title": "Empty and error states with retry",
+   "status": "Todo",
+   "labels": [
+    "frontend",
+    "Devin"
+   ],
+   "priority": {
+    "value": 3,
+    "name": "Medium"
+   },
+   "assignee": null,
+   "projectMilestone": {
+    "id": "56b80f1a-4e61-411d-a432-8a2b06ecbd0a",
+    "name": "UX Refresh"
+   },
+   "gitBranchName": "dan/dan-81-empty-and-error-states-with-retry",
+   "description": "## Goal\n\nWhen the HN API fails or a feed page is empty, readers see a friendly state with a way to recover instead of a dead end.\n\n## Context\n\n* Repo: [https://github.com/outpostDL/angular2-hn](<https://github.com/outpostDL/angular2-hn>) (branch `master`, React 18 + Vite)\n* `src/components/ErrorMessage/` (skull illustration) and `src/pages/FeedPage/FeedPage.tsx` loading/error handling (after the skeleton work lands).\n\n## Acceptance criteria\n\n- [ ] Error state: illustration, short message, `Retry` button that re-runs the fetch and shows the skeleton again.\n- [ ] Empty state for pages past the end of a feed: message + link back to page 1.\n- [ ] Offline (`navigator.onLine === false`) shows an offline variant and retries automatically on the `online` event.\n- [ ] Unit tests for error -> retry -> success and empty page.\n\n## UI expectations\n\nCapture each state via Playwright `page.route` (abort for error, empty array for empty, `context.setOffline(true)` for offline).\n\n## Validation\n\n* `npx tsc -b`, `npm test`, `npm run build` pass; add/extend vitest tests for new behavior.\n* `BASE_URL=http://localhost:5173 npx playwright test` passes.\n* Evidence (per `ui-pr-evidence`): before/after screenshots at 1440x900 and 390x844 in all three themes (default, night, amoled) where the change is visible, plus a short interaction video (animated webp) at the top of the PR.\n\n## Run constraints\n\nDemo mode. This issue is part of a repeatable demo (see **Run constraints** in project <project id=\"4f25bbb9-8071-4bf3-bba6-87d653a2789c\" href=\"https://linear.app/outpostpartners/project/hn-reader-ux-refresh-3528d5a8bfb6\">HN Reader \u2014 UX Refresh</project>). PRs may be opened but never merged. The issue may move up to In Review but never to Done, Canceled or Duplicate. At wrap-up, offer to reset the demo.",
+   "relations": {
+    "blocks": [
+     {
+      "id": "DAN-86",
+      "title": "PWA: offline mode with cached feeds and an offline banner"
+     },
+     {
+      "id": "DAN-82",
+      "title": "Validate: UX Refresh"
+     }
+    ],
+    "blockedBy": [
+     {
+      "id": "DAN-77",
+      "title": "Skeleton loading state for feeds"
+     }
+    ],
+    "relatedTo": [],
+    "duplicateOf": null
+   },
+   "updatedAt": "2026-09-30T03:10:05.662Z"
+  },
+  {
+   "id": "DAN-82",
+   "title": "Validate: UX Refresh",
+   "status": "Todo",
+   "labels": [
+    "frontend"
+   ],
+   "priority": {
+    "value": 3,
+    "name": "Medium"
+   },
+   "assignee": null,
+   "projectMilestone": {
+    "id": "56b80f1a-4e61-411d-a432-8a2b06ecbd0a",
+    "name": "UX Refresh"
+   },
+   "gitBranchName": "dan/dan-82-validate-ux-refresh",
+   "description": "## Goal\n\nVerify the whole UX Refresh on `feature/ux-refresh` before the roll-up PR into `master`.\n\n## Acceptance criteria\n\n- [ ] `npx tsc -b`, `npm test`, `npm run build`, full Playwright suite pass on the feature branch, and CI (<issue id=\"143fe804-da89-4cb9-ba14-64e801e340b7\" href=\"https://linear.app/outpostpartners/issue/DAN-83/ci-github-actions-for-typecheck-unit-build-and-playwright-on-prs\">DAN-83</issue>) is green on the roll-up PR.\n- [ ] End-to-end walkthrough recording (desktop + mobile) on the preview deployment (<issue id=\"2cfc5583-c866-4fb8-8489-ecf2ce619ff7\" href=\"https://linear.app/outpostpartners/issue/DAN-84/preview-deploys-per-pr-production-deploy-from-master\">DAN-84</issue>): browse feed in each theme via header toggle, open settings drawer, open a story's comments and collapse threads, trigger error/retry and loading states.\n- [ ] PWA check (<issue id=\"7e21ab8c-39ec-4c02-98f3-589f12ada2ad\" href=\"https://linear.app/outpostpartners/issue/DAN-85/pwa-web-app-manifest-icons-per-theme-theme-color-and-install-prompt\">DAN-85</issue>, <issue id=\"eca5ccb5-7fad-4ef6-b0d3-d90a9c704fe4\" href=\"https://linear.app/outpostpartners/issue/DAN-86/pwa-offline-mode-with-cached-feeds-and-an-offline-banner\">DAN-86</issue>): install the app from the preview URL, go offline, keep browsing cached feeds with the offline banner visible.\n- [ ] Roll-up PR `feature/ux-refresh` -> `master` with the walkthrough video on top, the preview link, and a table of child PRs with after screenshots.\n- [ ] Visual regression baselines updated for the new design.\n\n## Run constraints\n\nDemo mode. This issue is part of a repeatable demo (see **Run constraints** in project <project id=\"4f25bbb9-8071-4bf3-bba6-87d653a2789c\" href=\"https://linear.app/outpostpartners/project/hn-reader-ux-refresh-3528d5a8bfb6\">HN Reader \u2014 UX Refresh</project>). PRs may be opened but never merged. The issue may move up to In Review but never to Done, Canceled or Duplicate. At wrap-up, offer to reset the demo.",
+   "relations": {
+    "blocks": [],
+    "blockedBy": [
+     {
+      "id": "DAN-85",
+      "title": "PWA: web app manifest, icons, per-theme theme-color and install prompt"
+     },
+     {
+      "id": "DAN-86",
+      "title": "PWA: offline mode with cached feeds and an offline banner"
+     },
+     {
+      "id": "DAN-83",
+      "title": "CI: GitHub Actions for typecheck, unit, build and Playwright on PRs"
+     },
+     {
+      "id": "DAN-84",
+      "title": "Preview deploys per PR + production deploy from master"
+     },
+     {
+      "id": "DAN-81",
+      "title": "Empty and error states with retry"
+     },
+     {
+      "id": "DAN-75",
+      "title": "Header theme quick-toggle"
+     },
+     {
+      "id": "DAN-76",
+      "title": "Story card redesign for feed items"
+     },
+     {
+      "id": "DAN-77",
+      "title": "Skeleton loading state for feeds"
+     },
+     {
+      "id": "DAN-78",
+      "title": "Settings drawer redesign with live preview"
+     },
+     {
+      "id": "DAN-80",
+      "title": "Mobile bottom navigation"
+     },
+     {
+      "id": "DAN-79",
+      "title": "Comment threads: depth rails and collapsed reply counts"
+     }
+    ],
+    "relatedTo": [],
+    "duplicateOf": null
+   },
+   "updatedAt": "2026-09-30T03:10:09.808Z"
+  },
+  {
+   "id": "DAN-83",
+   "title": "CI: GitHub Actions for typecheck, unit, build and Playwright on PRs",
+   "status": "Todo",
+   "labels": [
+    "testing",
+    "infrastructure"
+   ],
+   "priority": {
+    "value": 3,
+    "name": "Medium"
+   },
+   "assignee": null,
+   "projectMilestone": {
+    "id": "56b80f1a-4e61-411d-a432-8a2b06ecbd0a",
+    "name": "UX Refresh"
+   },
+   "gitBranchName": "dan/dan-83-ci-github-actions-for-typecheck-unit-build-and-playwright-on",
+   "description": "## Goal\n\nEvery PR (including child-session PRs into `feature/ux-refresh`) gets automated checks, so reviews rely on green CI instead of local runs.\n\n## Context\n\n* Repo: [https://github.com/outpostDL/angular2-hn](<https://github.com/outpostDL/angular2-hn>) (branch `master`, React 18 + Vite, Node 20 via `.nvmrc`)\n* No `.github/workflows` exists today; Travis was removed in the React migration.\n* Scripts: `npm run build` (runs `tsc -b`), `npm test` (vitest), `npm run test:e2e` (Playwright, `playwright.config.ts`, `BASE_URL` defaults to [http://localhost:5173](<http://localhost:5173>)).\n\n## Acceptance criteria\n\n- [ ] `.github/workflows/ci.yml` runs on `pull_request` (any base branch) and `push` to `master`.\n- [ ] Node version read from `.nvmrc`; npm cache enabled.\n- [ ] Jobs: typecheck (`npx tsc -b`), unit (`npm test`), build (`npm run build`), e2e (Playwright chromium against `vite preview` or `npm run dev`, with `BASE_URL` set).\n- [ ] Playwright HTML report uploaded as an artifact on failure.\n- [ ] README gets a CI status badge; CONTRIBUTING mentions CI.\n\n## Validation\n\n* `npx tsc -b`, `npm test`, `npm run build` pass; add/extend vitest tests for new behavior.\n* `BASE_URL=http://localhost:5173 npx playwright test` passes.\n* Link a green run on the PR.\n\n## Run constraints\n\nDemo mode. This issue is part of a repeatable demo (see **Run constraints** in project <project id=\"4f25bbb9-8071-4bf3-bba6-87d653a2789c\" href=\"https://linear.app/outpostpartners/project/hn-reader-ux-refresh-3528d5a8bfb6\">HN Reader \u2014 UX Refresh</project>). PRs may be opened but never merged. The issue may move up to In Review but never to Done, Canceled or Duplicate. At wrap-up, offer to reset the demo.",
+   "relations": {
+    "blocks": [
+     {
+      "id": "DAN-82",
+      "title": "Validate: UX Refresh"
+     },
+     {
+      "id": "DAN-84",
+      "title": "Preview deploys per PR + production deploy from master"
+     }
+    ],
+    "blockedBy": [],
+    "relatedTo": [],
+    "duplicateOf": null
+   },
+   "updatedAt": "2026-09-30T03:10:06.949Z"
+  },
+  {
+   "id": "DAN-84",
+   "title": "Preview deploys per PR + production deploy from master",
+   "status": "Todo",
+   "labels": [
+    "infrastructure"
+   ],
+   "priority": {
+    "value": 3,
+    "name": "Medium"
+   },
+   "assignee": null,
+   "projectMilestone": {
+    "id": "56b80f1a-4e61-411d-a432-8a2b06ecbd0a",
+    "name": "UX Refresh"
+   },
+   "gitBranchName": "dan/dan-84-preview-deploys-per-pr-production-deploy-from-master",
+   "description": "## Goal\n\nEvery PR has a preview URL reviewers can click, and `master` auto-deploys to production.\n\n## Context\n\n* Repo: [https://github.com/outpostDL/angular2-hn](<https://github.com/outpostDL/angular2-hn>) (branch `master`, React 18 + Vite, Node 20 via `.nvmrc`)\n* The Angular app used to deploy to Firebase Hosting via Travis; both were removed in the migration, so nothing deploys today.\n* Deploy to our hosting.\n\n## Acceptance criteria\n\n- [ ] Each PR gets a preview deployment and the URL is posted on the PR.\n- [ ] Push to `master` deploys to production.\n- [ ] SPA rewrites so deep links (`/item/123`, `/user/pg`, `/news/2`) load on refresh.\n- [ ] Deploy credentials stored as repo/CI secrets, never committed.\n- [ ] README \"Deploy\" section explains previews, production and rollback.\n\n## Validation\n\n* `npx tsc -b`, `npm test`, `npm run build` pass; add/extend vitest tests for new behavior.\n* `BASE_URL=http://localhost:5173 npx playwright test` passes.\n* Evidence: screenshot of a PR with its preview link, and of a deep link loading on the preview URL.\n\n## Run constraints\n\nDemo mode. This issue is part of a repeatable demo (see **Run constraints** in project <project id=\"4f25bbb9-8071-4bf3-bba6-87d653a2789c\" href=\"https://linear.app/outpostpartners/project/hn-reader-ux-refresh-3528d5a8bfb6\">HN Reader \u2014 UX Refresh</project>). PRs may be opened but never merged. The issue may move up to In Review but never to Done, Canceled or Duplicate. At wrap-up, offer to reset the demo.",
+   "relations": {
+    "blocks": [
+     {
+      "id": "DAN-82",
+      "title": "Validate: UX Refresh"
+     }
+    ],
+    "blockedBy": [
+     {
+      "id": "DAN-83",
+      "title": "CI: GitHub Actions for typecheck, unit, build and Playwright on PRs"
+     }
+    ],
+    "relatedTo": [],
+    "duplicateOf": null
+   },
+   "updatedAt": "2026-09-30T03:10:08.258Z"
+  },
+  {
+   "id": "DAN-85",
+   "title": "PWA: web app manifest, icons, per-theme theme-color and install prompt",
+   "status": "Todo",
+   "labels": [
+    "frontend",
+    "Devin"
+   ],
+   "priority": {
+    "value": 3,
+    "name": "Medium"
+   },
+   "assignee": null,
+   "projectMilestone": {
+    "id": "56b80f1a-4e61-411d-a432-8a2b06ecbd0a",
+    "name": "UX Refresh"
+   },
+   "gitBranchName": "dan/dan-85-pwa-web-app-manifest-icons-per-theme-theme-color-and-install",
+   "description": "## Goal\n\nThe app is installable on desktop and mobile, with branding that matches the active theme.\n\n## Context\n\n* Repo: [https://github.com/outpostDL/angular2-hn](<https://github.com/outpostDL/angular2-hn>) (branch `master`, React 18 + Vite, Node 20 via `.nvmrc`)\n* The Angular version was a PWA; the React build has no manifest or service worker (`index.html`, `vite.config.ts`).\n* Logo: `src/assets/images/logo.svg`. Theme tokens come from <issue id=\"06dd1087-2d9a-4719-bd5a-6b4f06096a16\" href=\"https://linear.app/outpostpartners/issue/DAN-74/design-tokens-move-theme-colors-to-css-custom-properties\">DAN-74</issue> (CSS custom properties).\n\n## Acceptance criteria\n\n- [ ] `manifest.webmanifest` with `name`, `short_name`, `start_url`, `display: standalone`, `background_color`, and 192/512 plus maskable icons generated from the existing logo.\n- [ ] `<meta name=\"theme-color\">` updates when the theme changes (default / night / amoled), using the <issue id=\"06dd1087-2d9a-4719-bd5a-6b4f06096a16\" href=\"https://linear.app/outpostpartners/issue/DAN-74/design-tokens-move-theme-colors-to-css-custom-properties\">DAN-74</issue> tokens.\n- [ ] Apple touch icon and iOS meta tags.\n- [ ] An unobtrusive \"Install app\" affordance (from `beforeinstallprompt`) in Settings; hidden when already installed or unsupported.\n- [ ] Lighthouse PWA \"installable\" check passes on `npm run build && npm run preview`.\n\n## UI expectations\n\nThe install affordance matches the Settings drawer styling (see <issue id=\"77e64b69-75c0-4c5f-9ec0-7a371a9cf90c\" href=\"https://linear.app/outpostpartners/issue/DAN-78/settings-drawer-redesign-with-live-preview\">DAN-78</issue>) and appears in all themes on desktop and mobile.\n\n## Validation\n\n* `npx tsc -b`, `npm test`, `npm run build` pass; add/extend vitest tests for new behavior.\n* `BASE_URL=http://localhost:5173 npx playwright test` passes.\n* Evidence (per `ui-pr-evidence`): before/after screenshots at 1440x900 and 390x844 in all three themes (default, night, amoled) where the change is visible, plus a short interaction video (animated webp) at the top of the PR.\n* Also: a screenshot of the browser install prompt and the app running standalone.\n\n## Run constraints\n\nDemo mode. This issue is part of a repeatable demo (see **Run constraints** in project <project id=\"4f25bbb9-8071-4bf3-bba6-87d653a2789c\" href=\"https://linear.app/outpostpartners/project/hn-reader-ux-refresh-3528d5a8bfb6\">HN Reader \u2014 UX Refresh</project>). PRs may be opened but never merged. The issue may move up to In Review but never to Done, Canceled or Duplicate. At wrap-up, offer to reset the demo.",
+   "relations": {
+    "blocks": [
+     {
+      "id": "DAN-82",
+      "title": "Validate: UX Refresh"
+     },
+     {
+      "id": "DAN-86",
+      "title": "PWA: offline mode with cached feeds and an offline banner"
+     }
+    ],
+    "blockedBy": [
+     {
+      "id": "DAN-74",
+      "title": "Design tokens: move theme colors to CSS custom properties"
+     }
+    ],
+    "relatedTo": [
+     {
+      "id": "DAN-78",
+      "title": "Settings drawer redesign with live preview"
+     }
+    ],
+    "duplicateOf": null
+   },
+   "updatedAt": "2026-09-30T03:10:06.116Z"
+  },
+  {
+   "id": "DAN-86",
+   "title": "PWA: offline mode with cached feeds and an offline banner",
+   "status": "Todo",
+   "labels": [
+    "frontend",
+    "Devin"
+   ],
+   "priority": {
+    "value": 3,
+    "name": "Medium"
+   },
+   "assignee": null,
+   "projectMilestone": {
+    "id": "56b80f1a-4e61-411d-a432-8a2b06ecbd0a",
+    "name": "UX Refresh"
+   },
+   "gitBranchName": "dan/dan-86-pwa-offline-mode-with-cached-feeds-and-an-offline-banner",
+   "description": "## Goal\n\nReaders can keep browsing feeds and stories they've already loaded while offline, and always know when they are offline or when an update is available.\n\n## Context\n\n* Repo: [https://github.com/outpostDL/angular2-hn](<https://github.com/outpostDL/angular2-hn>) (branch `master`, React 18 + Vite, Node 20 via `.nvmrc`)\n* Depends on the manifest (PWA issue) and on the empty/error state component from <issue id=\"aedc3281-5479-4344-8ca1-ce3eae5daf9f\" href=\"https://linear.app/outpostpartners/issue/DAN-81/empty-and-error-states-with-retry\">DAN-81</issue>.\n* API: `src/services/hackernews-api.ts` (node-hnapi feeds and items).\n\n## Acceptance criteria\n\n- [ ] Service worker (e.g. `vite-plugin-pwa` / Workbox) precaches the app shell; the app loads offline after first visit.\n- [ ] Feed and item API responses cached stale-while-revalidate with a bounded cache (entries + max age).\n- [ ] Offline banner, built on the <issue id=\"aedc3281-5479-4344-8ca1-ce3eae5daf9f\" href=\"https://linear.app/outpostpartners/issue/DAN-81/empty-and-error-states-with-retry\">DAN-81</issue> error-state component, shows while `navigator.onLine` is false; uncached pages show a friendly offline state with retry.\n- [ ] \"New version available \u2014 reload\" toast when an updated service worker is waiting.\n- [ ] Service worker disabled in `npm run dev` and in vitest; Playwright test uses `context.setOffline(true)` to verify cached feed and banner.\n\n## UI expectations\n\nThe banner is non-blocking, sits below the header, and is readable in all themes on desktop and at 390x844.\n\n## Validation\n\n* `npx tsc -b`, `npm test`, `npm run build` pass; add/extend vitest tests for new behavior.\n* `BASE_URL=http://localhost:5173 npx playwright test` passes.\n* Evidence (per `ui-pr-evidence`): before/after screenshots at 1440x900 and 390x844 in all three themes (default, night, amoled) where the change is visible, plus a short interaction video (animated webp) at the top of the PR.\n* Also: a video of loading a feed, going offline, still browsing cached stories, and seeing the banner.\n\n## Run constraints\n\nDemo mode. This issue is part of a repeatable demo (see **Run constraints** in project <project id=\"4f25bbb9-8071-4bf3-bba6-87d653a2789c\" href=\"https://linear.app/outpostpartners/project/hn-reader-ux-refresh-3528d5a8bfb6\">HN Reader \u2014 UX Refresh</project>). PRs may be opened but never merged. The issue may move up to In Review but never to Done, Canceled or Duplicate. At wrap-up, offer to reset the demo.",
+   "relations": {
+    "blocks": [
+     {
+      "id": "DAN-82",
+      "title": "Validate: UX Refresh"
+     }
+    ],
+    "blockedBy": [
+     {
+      "id": "DAN-81",
+      "title": "Empty and error states with retry"
+     },
+     {
+      "id": "DAN-85",
+      "title": "PWA: web app manifest, icons, per-theme theme-color and install prompt"
+     }
+    ],
+    "relatedTo": [],
+    "duplicateOf": null
+   },
+   "updatedAt": "2026-09-30T03:10:10.114Z"
+  }
+ ],
+ "project": {
+  "id": "P-DAN-10",
+  "name": "HN Reader \u2014 UX Refresh",
+  "summary": "Modernize the angular2-hn React reader: design tokens, theme toggle, story cards, skeletons, settings drawer, comment rails, mobile nav, empty/error states.",
+  "description": "## Run constraints\n\n**Demo mode: this project is a repeatable client demo.** Every session that works on it or any of its issues, including orchestrator child sessions, must follow these rules:\n\n* **Never merge a PR** into `master`, `feature/ux-refresh` or any other branch, in either Gated or Autonomous mode. Leave every PR open.\n* **Stack instead of merging.** A child branches from its blocker's PR branch and targets its PR at that branch (or at `feature/ux-refresh` when no blocker PR is open). With several blockers, branch from one and `git merge` the others locally.\n* **Never close anything.** Issues go no further than In Review (never Done, Canceled or Duplicate), and the project status stays Planned.\n* Temporary changes are fine: statuses up to In Review, description edits, comments, new issues, status updates, branches, PRs, and the `feature/ux-refresh` branch. Record each one in the session's run ledger.\n* **At wrap-up**, ask the user \"Reset the demo now?\" To reset, follow the **Demo baseline & reset** document in this project. The baseline is `master` at `67f0eb1`.\n\n## Overview\n\nA visual and interaction refresh of the HN reader (React 18 + Vite) in [outpostDL/angular2-hn](<https://github.com/outpostDL/angular2-hn>). Every issue is UI work that must ship with screenshot and video evidence in its PR (see the `ui-pr-evidence` skill in the `linear-ops` plugin).\n\n## Repo & Branch Strategy\n\n* **Repo:** [https://github.com/outpostDL/angular2-hn](<https://github.com/outpostDL/angular2-hn>)\n* **Base branch:** `master`\n* **Feature branch:** `feature/ux-refresh` off `master`. Child PRs target `feature/ux-refresh`; one roll-up PR `feature/ux-refresh` -> `master` after **Validate: UX Refresh**.\n* **Stack:** Vite + React 18 + TypeScript + React Router v6 + SCSS, Node 20\n\n## Repo Setup\n\n```bash\nnpm install\nnpm run dev          # http://localhost:5173\nnpx tsc -b           # typecheck\nnpm test             # vitest\nnpm run build\nBASE_URL=http://localhost:5173 npx playwright test\n```\n\n## Waves\n\n1. **Foundation:** Design tokens\n2. **Parallel UI:** Header theme toggle, Story cards, Skeleton loading, Settings drawer\n3. **Follow-ons:** Comment rails (needs cards), Mobile bottom nav (needs toggle), Empty/error states (needs skeleton)\n4. **Validate:** end-to-end walkthrough + roll-up PR\n\n## Evidence standard\n\nBefore/after screenshots at 1440x900 and 390x844 in default, night and amoled themes where visible, plus an interaction video (animated webp) at the top of each PR. The same media is attached to the Linear issue.",
+  "status": {
+   "id": "0d0c1ad6-80f7-4acc-8cef-3e739b31ae9e",
+   "name": "Planned",
+   "type": "planned"
+  },
+  "priority": {
+   "value": 3,
+   "name": "Medium"
+  },
+  "updatedAt": "2026-09-30T03:10:05.839Z"
+ }
+}
