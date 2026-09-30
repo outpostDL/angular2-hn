@@ -131,7 +131,12 @@ for (const vp of viewports) {
             });
 
             test(`${theme}: loading state`, async ({ page }) => {
-                await mockApi(page, async (_route, pathname) => pathname === '/news');
+                const pendingFeed: Route[] = [];
+                await mockApi(page, async (route, pathname) => {
+                    if (pathname !== '/news') return false;
+                    pendingFeed.push(route);
+                    return true;
+                });
                 await useTheme(page, theme);
                 await page.goto('/news/1');
                 await expect(page.locator('.loading-section .loader')).toBeVisible();
@@ -139,6 +144,7 @@ for (const vp of viewports) {
                     ...screenshotOptions,
                     fullPage: false,
                 });
+                await Promise.all(pendingFeed.map((route) => route.abort()));
             });
         }
     });
