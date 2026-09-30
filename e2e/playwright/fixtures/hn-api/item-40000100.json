@@ -1,0 +1,33 @@
+{
+  "id": 40000100,
+  "title": "Poll: Which theme do you use?",
+  "points": 230,
+  "user": "dang",
+  "time": 1789980000,
+  "time_ago": "6 hours ago",
+  "type": "poll",
+  "url": "item?id=40000100",
+  "domain": "",
+  "comments_count": 1,
+  "content": "<p>Curious what everyone prefers.</p>",
+  "poll": [
+    {},
+    {},
+    {}
+  ],
+  "poll_votes_count": 0,
+  "deleted": false,
+  "dead": false,
+  "comments": [
+    {
+      "id": 11,
+      "level": 0,
+      "user": "dave",
+      "time": 1790000000,
+      "time_ago": "5 hours ago",
+      "content": "<p>AMOLED all the way.</p>",
+      "deleted": false,
+      "comments": []
+    }
+  ]
+}

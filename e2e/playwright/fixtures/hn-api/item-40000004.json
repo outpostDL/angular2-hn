@@ -1,0 +1,70 @@
+{
+  "id": 40000004,
+  "title": "Why we moved our theme engine to CSS variables",
+  "points": 401,
+  "user": "user4",
+  "time": 1789989200,
+  "time_ago": "4 hours ago",
+  "type": "story",
+  "url": "https://blog.example.org/post/40000004",
+  "domain": "blog.example.org",
+  "comments_count": 5,
+  "poll": [],
+  "poll_votes_count": 0,
+  "deleted": false,
+  "dead": false,
+  "comments": [
+    {
+      "id": 1,
+      "level": 0,
+      "user": "alice",
+      "time": 1790000000,
+      "time_ago": "3 hours ago",
+      "content": "<p>We did the same migration last year. The biggest win was that new themes became a 20-line change.</p>",
+      "deleted": false,
+      "comments": [
+        {
+          "id": 2,
+          "level": 1,
+          "user": "bob",
+          "time": 1790000000,
+          "time_ago": "2 hours ago",
+          "content": "<p>Did you keep the SCSS variables around as a fallback, or drop them entirely?</p>",
+          "deleted": false,
+          "comments": [
+            {
+              "id": 3,
+              "level": 2,
+              "user": "alice",
+              "time": 1790000000,
+              "time_ago": "2 hours ago",
+              "content": "<p>Dropped them. Browser support for custom properties is universal now.</p>",
+              "deleted": false,
+              "comments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "level": 0,
+      "user": "",
+      "time": 1790000000,
+      "time_ago": "1 hour ago",
+      "content": "",
+      "deleted": true,
+      "comments": []
+    },
+    {
+      "id": 5,
+      "level": 0,
+      "user": "carol",
+      "time": 1790000000,
+      "time_ago": "30 minutes ago",
+      "content": "<p>Nice write-up. <a href=\"https://example.com\">Here is a related talk</a> on token naming.</p>",
+      "deleted": false,
+      "comments": []
+    }
+  ]
+}

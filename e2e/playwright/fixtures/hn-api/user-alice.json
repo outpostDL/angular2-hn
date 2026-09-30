@@ -1,0 +1,8 @@
+{
+  "id": "alice",
+  "created_time": 1300000000,
+  "created": "15 years ago",
+  "karma": 12345,
+  "avg": 0,
+  "about": "<p>Frontend engineer. Writes about CSS, design systems and theming.</p><p><a href=\"https://example.com\">example.com</a></p>"
+}

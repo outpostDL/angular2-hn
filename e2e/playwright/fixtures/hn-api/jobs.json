@@ -1,0 +1,38 @@
+[
+  {
+    "id": 40001001,
+    "title": "Tokenly (YC S26) is hiring a founding frontend engineer",
+    "points": null,
+    "user": null,
+    "time": 1790000000,
+    "time_ago": "1 hours ago",
+    "comments_count": 0,
+    "type": "job",
+    "url": "https://tokenly.dev/jobs",
+    "domain": "tokenly.dev"
+  },
+  {
+    "id": 40001002,
+    "title": "Acme Robotics (YC W25) is hiring embedded engineers",
+    "points": null,
+    "user": null,
+    "time": 1789992800,
+    "time_ago": "3 hours ago",
+    "comments_count": 0,
+    "type": "job",
+    "url": "https://acme.com/jobs",
+    "domain": "acme.com"
+  },
+  {
+    "id": 40001003,
+    "title": "Paperclip (YC S24) \u2013 Senior Rust Engineer (Remote)",
+    "points": null,
+    "user": null,
+    "time": 1789985600,
+    "time_ago": "5 hours ago",
+    "comments_count": 0,
+    "type": "job",
+    "url": "item?id=40001003",
+    "domain": ""
+  }
+]
